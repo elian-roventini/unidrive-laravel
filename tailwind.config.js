@@ -10,6 +10,16 @@ module.exports = {
 
     theme: {
         extend: {
+            colors: {
+                orange: {
+                    light: '#FF5A1F',
+                    DEFAULT: '#FF4605',
+                    dark: '#B33102'
+                },
+                blue: {
+                    dark: '#0F141E'
+                }
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
