@@ -9,17 +9,16 @@
         
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-white">
-        <div class="min-h-screen bg-blue-dark mx-auto px-10">         
-            <header>
+    <body class="font-sans antialiased text-white min-h-screen">
+            <header class="bg-blue-dark mx-auto px-10">
                 @include('layouts.navigation')
             </header>
 
-            <main class="space-y-6">
+            <main>
                 @yield('content')
             </main>
 
-            <footer class="flex justify-center py-4">
+            <footer class="bg-blue-dark mx-auto px-10 flex justify-center py-4">
                 <p class="text-sm">Copyright ©UniDrive Inc. {{ date("Y") }}. All right reserved.</p>
             </footer>
         </div>
