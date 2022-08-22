@@ -18,6 +18,10 @@
             <main class="space-y-6">
                 @yield('content')
             </main>
+
+            <footer class="flex justify-center py-4">
+                <p class="text-sm">Copyright ©UniDrive Inc. {{ date("Y") }}. All right reserved.</p>
+            </footer>
         </div>
     </body>
 </html>
