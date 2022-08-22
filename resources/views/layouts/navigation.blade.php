@@ -94,7 +94,7 @@
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-white">
                 <div class="px-4">
-                    <div class="font-medium text-base text-white">{{ Auth::user()->name ?? '' }}</div>
+                    <div class="font-medium text-base">{{ Auth::user()->name ?? '' }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email ?? '' }}</div>
                 </div>
 

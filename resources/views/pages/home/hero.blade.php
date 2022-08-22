@@ -1,5 +1,5 @@
-<div class="mt-6 flex flex-col md:flex-row items-center md:justify-between gap-6">
-    <div class="max-w-sm text-white space-y-6">
+<div class="mt-6 flex flex-col md:flex-row md:justify-between gap-6">
+    <div class="max-w-sm space-y-6">
         <h1 class="text-2xl uppercase tracking-wide">Vamos encontrar o carro perfeito para você!</h1>
         <p class="text-xl font-light tracking-wide">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel sed in mauris, libero magna. Cursus urna sem odio nulla aliquam. Nascetur.</p>
         <x-button>Sobre Nós</x-button>
