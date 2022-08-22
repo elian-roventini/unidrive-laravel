@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'index')->name('index');
+Route::view('/', 'pages.home.index')->name('home.index');
