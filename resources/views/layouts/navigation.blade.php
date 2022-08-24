@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }">
-    <div class="flex justify-between h-16">
+    <div class="flex justify-between h-16 pb-6">
         <div class="flex">
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('home.index') }}">
@@ -70,7 +70,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': !open}" class="hidden md:hidden">
+    <div :class="{'block': open, 'hidden': !open}" class="hidden md:hidden pb-6">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home.index')" :active="request()->routeIs('home.index')">
                 {{ __('Home') }}

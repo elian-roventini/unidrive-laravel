@@ -1,10 +1,10 @@
-<div class="mt-6 flex flex-col lg:flex-row lg:justify-between gap-6">
-    <div class="space-y-6">
+<div class="py-6 flex flex-col lg:flex-row lg:justify-between gap-6">
+    <div class="max-w-xl space-y-6">
         <h1 class="text-2xl uppercase tracking-wide">Vamos encontrar o carro perfeito para você!</h1>
         <p class="text-xl font-light tracking-wide">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel sed in mauris, libero magna. Cursus urna sem odio nulla aliquam. Nascetur.</p>
         <x-button>Sobre Nós</x-button>
     </div>
-    <div class="min-w-fit max-w-fit h-fit bg-white px-4 shadow sm:rounded-md sm:overflow-hidden">
+    <div class="max-w-lg h-fit bg-white px-4 shadow sm:rounded-md">
         <form action="#" method="POST">
             <div class="pt-4 space-y-1">
                 <x-form.select>
@@ -34,7 +34,7 @@
                 <x-form.input>De</x-form.input>
                 <x-form.input>Até</x-form.input>
             </div>
-            <div class="flex gap-4 pb-4">
+            <div class="flex flex-col sm:flex-row gap-4 pb-4">
                 <x-button outline class="text-orange border-orange">Pesquisa Avançada</x-button>
                 <x-button>Pesquisar</x-button>
             </div>
