@@ -1,5 +1,5 @@
 @props([
-    'image' => 'https://mdbootstrap.com/img/new/standard/nature/182.jpg',
+    'image' => 'https://motorshow.com.br/wp-content/uploads/sites/2/2019/07/1_ms430_renault-sandero2-747x420.jpg',
     'car' => 'Renault Sandero',
     'price' => 'R$ 61.890',
     'description' => '2.0 Mpfi Gls 16v 143cv 2wd Flex 4p',

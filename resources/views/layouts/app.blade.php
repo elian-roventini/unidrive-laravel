@@ -6,21 +6,18 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>UniDrive - @yield('title')</title>
-        
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-white min-h-screen">
-            <header class="bg-blue-dark mx-auto px-10">
-                @include('layouts.navigation')
-            </header>
+    <body class="text-white">
+        <header class="bg-blue-dark mx-auto px-20">
+            @include('layouts.navigation')
+        </header>
 
-            <main>
-                @yield('content')
-            </main>
+        @yield('content')
 
-            <footer class="bg-blue-dark mx-auto px-10 flex justify-center py-4">
-                <p class="text-sm">Copyright ©UniDrive Inc. {{ date("Y") }}. All right reserved.</p>
-            </footer>
-        </div>
+        <footer class="bg-blue-dark mx-auto px-20 flex justify-center py-4">
+            <p class="text-sm">Copyright ©UniDrive Inc. {{ date("Y") }}. All right reserved.</p>
+        </footer>
     </body>
 </html>
