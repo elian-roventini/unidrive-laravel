@@ -10,7 +10,7 @@
             <x-nav.link :href="route('home.index')" :active="request()->routeIs('home.index')">
                 {{ __('Home') }}
             </x-nav.link>
-            <x-nav.link :href="route('home.index')" :active="request()->routeIs('cars.index')">
+            <x-nav.link :href="route('cars.index')" :active="request()->routeIs('cars.index')">
                 {{ __('Carros') }}
             </x-nav.link>
             <x-nav.link :href="route('home.index')" :active="request()->routeIs('about.index')">
@@ -96,7 +96,7 @@
             <x-nav.responsive-link :href="route('home.index')" :active="request()->routeIs('home.index')">
                 {{ __('Home') }}
             </x-nav.responsive-link>
-            <x-nav.responsive-link :href="route('home.index')" :active="request()->routeIs('cars.index')">
+            <x-nav.responsive-link :href="route('cars.index')" :active="request()->routeIs('cars.index')">
                 {{ __('Carros') }}
             </x-nav.responsive-link>
             <x-nav.responsive-link :href="route('home.index')" :active="request()->routeIs('about.index')">
