@@ -35,7 +35,7 @@
 
                 <p class="my-3 text-md text-black">Leia nossos termos e condições <a href="#" class="text-orange">clicando aqui!</a></p>
                 <div>
-                    <x-form.input type="checkbox" class="w-2 mr-4 float-left"></x-form.input>
+                    <x-form.checkbox class="mr-2 float-left"></x-form.input>
                     <p class="text-md text-black">Concordo com os termos e condições</p>
                 </div>
 
