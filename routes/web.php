@@ -7,3 +7,4 @@ Route::view('/login', 'pages.auth.login')->name('auth.login');
 Route::view('/registrar/usuario', 'pages.auth.register.user')->name('auth.register.user');
 Route::view('/registrar/concessionaria', 'pages.auth.register.dealership')->name('auth.register.dealership');
 Route::view('/carros', 'pages.cars.index')->name('cars.index');
+Route::view('/sobre', 'pages.about.index')->name('about.index');
