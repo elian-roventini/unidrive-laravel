@@ -9,14 +9,14 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="text-white">
-        <header class="bg-blue-dark mx-auto px-20">
+    <body class="text-white bg-blue-dark">
+        <header class="mx-auto px-10">
             @include('layouts.navigation')
         </header>
 
         @yield('content')
 
-        <footer class="bg-blue-dark mx-auto px-20 flex justify-center py-4">
+        <footer class="mx-auto px-10 flex justify-center py-4">
             <p class="text-sm">Copyright ©UniDrive Inc. {{ date("Y") }}. All right reserved.</p>
         </footer>
     </body>
