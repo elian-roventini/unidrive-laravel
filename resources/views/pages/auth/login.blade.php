@@ -3,24 +3,32 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="container flex mx-auto py-32">
-        <div class="grid justify-items-center w-1/2">
-            <h1 class="my-3 text-2xl text-black uppercase font-semibold">Login</h1>
-
-            <form>
-                <x-form.input placeholder="CPF/CNPJ"></x-form.input>
-                <x-form.input placeholder="Senha" type="password"></x-form.input>
-
-                <div class="flex items-center justify-end mt-4">
-                    <x-button type="button">Login</x-button>
+    <div class="bg-white text-black container p-16 my-10 mx-auto">
+        <div class="p-4 px-4 md:p-8 mb-6">
+            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                <div class="text-black">
+                    <p class="font-medium text-lg">Login</p>
                 </div>
-            </form>
-        </div>
-        <div class="grid justify-items-center w-1/2 gap-4">
-            <h1 class="my-3 text-2xl text-black uppercase font-semibold">Cadastrar</h1>
 
-            <x-button :href="route('auth.register.user')">Cadastrar Usuário</x-button>
-            <x-button :href="route('auth.register.dealership')">Cadastrar Concessionária</x-button>
+                <div class="lg:col-span-2">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                        <div class="md:col-span-5">
+                            <x-form.input name="cpf_cnpj" placeholder="CPF/CNPJ">CPF/CNPJ</x-form.input>
+                        </div>
+
+                        <div class="md:col-span-5 mt-3">
+                            <x-form.input name="password" placeholder="Senha" type="password">Senha</x-form.input>
+                        </div>
+
+                        <div class="md:col-span-5 text-right">
+                            <div class="inline-flex items-end">
+                                <x-button type="button">Login</x-button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
