@@ -9,7 +9,7 @@ class CarController extends Controller
 {
     public function index()
     {
-        $cars = array_fill(1, 10, [
+        $cars = array_fill(1, 3, [
             'image' => 'https://motorshow.com.br/wp-content/uploads/sites/2/2019/07/1_ms430_renault-sandero2-747x420.jpg',
             'name' => 'Renault Sandero',
             'price' => 'R$ 61.890',

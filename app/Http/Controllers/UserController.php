@@ -11,20 +11,23 @@ class UserController extends Controller
     public function store(UserPostRequest $request): RedirectResponse
     {
         $user = [
-            'nome' => $request->validated()['name'],
-            'email' => $request->validated()['email'],
-            'senha' => $request->validated()['password'],
+          'nome' => $request->validated()['name'],
+          'email' => $request->validated()['email'],
+          'senha' => $request->validated()['password'],
         ];
+
         $postUserResponse = Http::unidrive()->acceptJson()->asJson()->post('/usuario', $user);
 
         if ($postUserResponse->failed()) {
             return back()
+                ->with([
+                    'error' => 'Usuário não pode ser cadastrado!'
+                ])
                 ->withInput($request->safe()->except(['password']));
         }
 
-        return back()
-            ->withCookies([
-                'sucess' => 'Usuário Cadastrado!'
+        return back()->with([
+                'success' => 'Usuário Cadastrado!'
             ]);
     }
 }
