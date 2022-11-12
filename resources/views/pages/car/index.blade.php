@@ -9,7 +9,7 @@
         <div class="flex flex-col md:flex-row">
             @include('pages.car.search-box')
 
-            @include('pages.car.car-list')
+            @include('pages.car.list')
         </div>
     </div>
 @endsection

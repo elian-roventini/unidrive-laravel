@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::view('/about', 'pages.about-us.index')->name('about.index');
-Route::get('/car', [CarController::class, 'index'])->name('car.index');
+
+Route::prefix('/car/')->name('car.')->group(function () {
+    Route::get('', [CarController::class, 'index'])->name('index');
+    Route::get('{modelo}', [CarController::class, 'show'])->name('show');
+});
 
 Route::view('/login', 'pages.auth.login')->name('auth.login');
 
