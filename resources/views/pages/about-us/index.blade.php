@@ -3,7 +3,7 @@
 @section('title', 'Sobre Nós')
 
 @section('content')
-    <section id="about" class="bg-white text-black mx-auto px-10 py-6">
+    <section id="about" class="bg-white text-black container p-8 my-4 mx-auto">
         @include('pages.home.about')
     </section>
 @endsection

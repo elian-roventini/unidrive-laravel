@@ -2,7 +2,7 @@
     <div class="flex justify-between h-16 py-3">
         <div class="flex items-center">
             <a href="{{ route('home.index') }}">
-                <img src="{{ asset('assets/images/logo.svg') }}">
+                <img src="{{ asset('assets/images/logo.svg') }}" alt="Logo Unidrive">
             </a>
         </div>
 
@@ -10,7 +10,7 @@
             <x-nav.link :href="route('home.index')" :active="request()->routeIs('home.index')">
                 {{ __('Home') }}
             </x-nav.link>
-            <x-nav.link :href="route('home.index')" :active="request()->routeIs('cars.index')">
+            <x-nav.link :href="route('car.index')" :active="request()->routeIs('car.index')">
                 {{ __('Carros') }}
             </x-nav.link>
             <x-nav.link :href="route('about.index')" :active="request()->routeIs('about.index')">
@@ -27,8 +27,8 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <div class="grid justify-items-end px-4 py-2">
-                            <x-button :href="route('auth.register.user')" class="mb-2">Usuário</x-button>
+                        <div class="grid justify-items-end px-4 py-2 space-y-2">
+                            <x-button :href="route('auth.register.user')">Usuário</x-button>
                             <x-button :href="route('auth.register.dealership')">Concessionária</x-button>
                         </div>
                     </x-slot>
@@ -96,7 +96,7 @@
             <x-nav.responsive-link :href="route('home.index')" :active="request()->routeIs('home.index')">
                 {{ __('Home') }}
             </x-nav.responsive-link>
-            <x-nav.responsive-link :href="route('home.index')" :active="request()->routeIs('cars.index')">
+            <x-nav.responsive-link :href="route('car.index')" :active="request()->routeIs('car.index')">
                 {{ __('Carros') }}
             </x-nav.responsive-link>
             <x-nav.responsive-link :href="route('about.index')" :active="request()->routeIs('about.index')">
@@ -105,10 +105,10 @@
         </div>
 
         @guest
-            <div class="ml-4 space-x-2">
-                <x-button outline>Login</x-button>
-                <x-button>Cadastrar <br> Usuário</x-button>
-                <x-button>Cadastrar <br> Concessionária</x-button>
+            <div class="flex flex-col space-y-4">
+                <x-button :href="route('auth.login')" class="w-40" outline>Login</x-button>
+                <x-button :href="route('auth.register.user')" class="w-40">Cadastrar <br> Usuário</x-button>
+                <x-button :href="route('auth.register.dealership')" class="w-40">Cadastrar <br> Concessionária</x-button>
             </div>
         @endguest
 

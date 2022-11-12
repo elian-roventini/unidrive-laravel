@@ -1,15 +1,11 @@
 @props([
     "placeholder" => ""
 ])
-
-<div class="">
-    @if($slot != "")
-        <label for="text-input" class="form-label inline-block mb-2 text-gray-700">{{ $slot }}</label>
-    @endif
-    <input
-        {{ $attributes->merge([
-            'type' => 'text',
-            'class' => '
+<input
+    {{ $attributes->merge([
+        'type' => 'text',
+        'class' => '
+            mt-3
             form-control
             block
             w-full
@@ -25,8 +21,7 @@
             ease-in-out
             m-0
             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-            ',
-            'placeholder' => $placeholder]) }}
-    >
-    </div>
-</div>
+        ',
+        'placeholder' => $placeholder
+    ]) }}
+/>

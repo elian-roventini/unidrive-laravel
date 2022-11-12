@@ -13,7 +13,7 @@
         <img class="rounded-t-lg" src="{{ $image }}" alt=""/>
         <div class="px-4">
             <div class="flex justify-between py-6">
-                <h5 class="text-md font-bold uppercase">{{ $name }}</h5>
+                <h5 class="text-md font-bold uppercase text-white">{{ $name }}</h5>
                 <p class="text-md font-bold text-orange">{{ $price }}</p>
             </div>
             <div class="py-3 border-t border-gray-800">

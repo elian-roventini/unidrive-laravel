@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class HomeController extends Controller
+class CarController extends Controller
 {
     public function index()
     {
-        if (cache()->has('cars')) {
-            cache()->add('cars', Http::get('http://127.0.0.1:8080/carro')->body());
-        }
-
-        $cars = cache()->get('cars') ?: array_fill(1, 10, [
+        $cars = array_fill(1, 10, [
             'image' => 'https://motorshow.com.br/wp-content/uploads/sites/2/2019/07/1_ms430_renault-sandero2-747x420.jpg',
             'name' => 'Renault Sandero',
             'price' => 'R$ 61.890',
@@ -22,6 +19,6 @@ class HomeController extends Controller
             'distance' => '29km',
         ]);
 
-        return view('pages.home.index', compact('cars'));
+        return view('pages.car.index', compact('cars'));
     }
 }

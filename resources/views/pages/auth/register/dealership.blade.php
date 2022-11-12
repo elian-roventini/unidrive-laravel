@@ -3,44 +3,35 @@
 @section('title', 'Cadastrar Concessionária')
 
 @section('content')
-    <div class="container flex mx-auto px-6 py-6 lg:py-14">
-        <div class="grid justify-items-center w-full lg:w-1/2">
-            <h1 class="my-3 text-2xl text-black uppercase font-semibold">Cadastrar Concessionária</h1>
+    <div class="bg-white text-black p-8 my-4 mx-auto">
+        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+            <p class="font-medium text-lg">Cadastrar Concessionária</p>
 
-            <form class="max-w-sm">
-                <x-form.input placeholder="Nome Fantasia"></x-form.input>
-                <x-form.input placeholder="E-mail" type="email"></x-form.input>
+            <form class="" method="POST" action="{{ route('auth.register.user.store') }}">
+                <div class="lg:col-span-2">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                        @csrf
 
-                <x-form.input class="" placeholder="CNPJ"></x-form.input>
+                        <x-form.input class="md:col-span-5" name="name" placeholder="Nome Fantasia" />
+                        <x-form.input class="md:col-span-5" placeholder="E-mail" type="email" />
+                        <x-form.input class="md:col-span-5" placeholder="CNPJ" />
+                        <x-form.input class="md:col-span-5" placeholder="Telefone" />
+                        <x-form.input class="md:col-span-3" placeholder="Endereço" />
+                        <x-form.input class="md:col-span-2" placeholder="Número" />
+                        <x-form.input class="md:col-span-3" placeholder="Complemento" />
+                        <x-form.input class="md:col-span-2" placeholder="CEP" />
 
-                <x-form.input placeholder="Telefone"></x-form.input>
+                        <p class="md:col-span-5 my-3 text-md text-black">Leia nossos termos e condições <a href="#" class="text-orange">clicando aqui!</a></p>
+                        <div class="md:col-span-5 inline-flex items-center">
+{{--                            @todo --}}
+{{--                            <x-form.input class="w-4 mr-4 float-left" type="checkbox" />--}}
+                            <p class="text-md text-black">Concordo com os termos e condições</p>
+                        </div>
 
-                <div class="flex flex-wrap -mx-3">
-                    <div class="w-full sm:w-2/3 px-3">
-                        <x-form.input placeholder="Endereço"></x-form.input>
+                        <div class="md:col-span-5 inline-flex justify-end mt-3">
+                            <x-button type="button">Cadastrar</x-button>
+                        </div>
                     </div>
-                    <div class="w-full sm:w-1/3 px-3">
-                        <x-form.input placeholder="Número"></x-form.input>
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap -mx-3">
-                    <div class="w-full sm:w-2/3 px-3">
-                        <x-form.input placeholder="Complemento"></x-form.input>
-                    </div>
-                    <div class="w-full sm:w-1/3 px-3">
-                        <x-form.input placeholder="CEP"></x-form.input>
-                    </div>
-                </div>
-
-                <p class="my-3 text-md text-black">Leia nossos termos e condições <a href="#" class="text-orange">clicando aqui!</a></p>
-                <div>
-                    <x-form.input type="checkbox" class="w-2 mr-4 float-left"></x-form.input>
-                    <p class="text-md text-black">Concordo com os termos e condições</p>
-                </div>
-
-                <div class="flex justify-center md:justify-end mt-4">
-                    <x-button type="button">Cadastrar</x-button>
                 </div>
             </form>
         </div>
