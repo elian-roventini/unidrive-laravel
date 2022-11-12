@@ -27,7 +27,7 @@ class UserController extends Controller
         }
 
         return back()->with([
-                'success' => 'Usuário Cadastrado!'
-            ]);
+            'success' => 'Usuário cadastrado!'
+        ]);
     }
 }
