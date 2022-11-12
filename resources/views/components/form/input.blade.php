@@ -1,5 +1,6 @@
 @props([
-    "placeholder" => ""
+    "placeholder" => "",
+    "value" => ""
 ])
 
 @php

@@ -9,6 +9,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::view('/about', 'pages.about-us.index')->name('about.index');
 Route::get('/car', [CarController::class, 'index'])->name('car.index');
+Route::get('/car/{modelo}', [CarController::class, 'show'])->name('car.show');
 
 Route::view('/login', 'pages.auth.login')->name('auth.login');
 
