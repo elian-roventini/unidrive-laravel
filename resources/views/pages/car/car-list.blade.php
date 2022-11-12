@@ -13,7 +13,7 @@
         @endforeach
     </div>
 
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-4">
         <x-button>Ver Mais</x-button>
     </div>
 </section>
