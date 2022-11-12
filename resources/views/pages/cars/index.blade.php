@@ -10,16 +10,16 @@
                 <x-card class="p-6">
                     <x-form.input placeholder='Pesquisar Nome' />
                     <div class="grid gap-4 lg:grid-cols-2">
-                        <x-form.select>Marca</x-form>
-                        <x-form.select>Modelo</x-form>
+                        <x-form.select>Marca</x-form.select>
+                        <x-form.select>Modelo</x-form.select>
                     </div>
                     <div class="grid gap-4 lg:grid-cols-2">
-                        <x-form.select>Ano</x-form>
-                        <x-form.select>Cor</x-form>
+                        <x-form.select>Ano</x-form.select>
+                        <x-form.select>Cor</x-form.select>
                     </div>
                     <div class="grid gap-4 lg:grid-cols-2">
-                        <x-form.select>Cidade</x-form>
-                        <x-form.select>Estado</x-form>
+                        <x-form.select>Cidade</x-form.select>
+                        <x-form.select>Estado</x-form.select>
                     </div>
 
                     <div class="flex justify-around">
