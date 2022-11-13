@@ -22,7 +22,6 @@
                 focus:border-blue-600
                 focus:outline-none
         ']) }}
-        value="{{ old($attributes['name']) }}"
     >
       {{ $slot }}
     </select>

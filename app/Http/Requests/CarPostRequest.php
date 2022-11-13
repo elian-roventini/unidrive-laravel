@@ -24,14 +24,14 @@ class CarPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'ano' => ['required', 'int'],
+            'ano' => ['required', 'integer'],
             'cor' => ['required', 'string'],
             'marca' => ['required', 'string'],
             'modelo' => ['required', 'string'],
             'documentacao' => ['required', 'unique:carro', 'string'],
             'placa' => ['required', 'unique:carro', 'string'],
-            'quilometragem' => ['required', 'float'],
-            'renavam' => ['required', 'unique:carro', 'string'],
+            'quilometragem' => ['required', 'integer'],
+            'renovam' => ['required', 'unique:carro', 'string'],
         ];
     }
 
@@ -44,7 +44,7 @@ class CarPostRequest extends FormRequest
             'required' => 'O campo :attribute é necessário.',
             'unique' => 'O :attribute já está cadastrado na nossa base de dados.',
             'string' => 'O :attribute deve ser apenas letras e números.',
-            'int' => 'O :attribute deve ser apenas números inteiros.',
+            'integer' => 'O :attribute deve ser apenas números inteiros.',
             'float' => 'O :attribute deve ser apenas números.',
         ];
     }

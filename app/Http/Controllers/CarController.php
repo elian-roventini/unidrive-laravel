@@ -59,15 +59,16 @@ class CarController extends Controller
             'documentacao' => $request->documentacao,
             'placa' => $request->placa,
             'quilometragem' => $request->quilometragem,
-            'renovam' => $request->renavam,
+            'renovam' => $request->renovam,
         ]);
 
         if ($postCarroResponse->failed()) {
             return back()
                 ->with([
-                    'error' => 'Carro não pode ser cadastrado!'
+                    'error' => 'Carro não pode ser cadastrado!',
+                    'error-description' => $postCarroResponse->body()
                 ])
-                ->withInput($request->safe()->except(['password']));
+                ->withInput($request->validated());
         }
 
         return back()->with([
