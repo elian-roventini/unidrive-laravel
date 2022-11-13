@@ -10,10 +10,14 @@
 
 <div class="flex justify-center text-black">
     <div class="rounded-lg shadow-lg bg-blue-dark max-w-sm">
-        <img class="rounded-t-lg" src="{{ $image }}" alt=""/>
+        <a href="{{ route('car.show', $name) }}">
+            <img class="rounded-t-lg" src="{{ $image }}" alt="Foto do carro"/>
+        </a>
         <div class="px-4">
             <div class="flex justify-between py-6">
-                <h5 class="text-md font-bold uppercase text-white">{{ $name }}</h5>
+                <a href="{{ route('car.show', $name) }}">
+                    <h5 class="text-md font-bold uppercase text-white">{{ $name }}</h5>
+                </a>
                 <p class="text-md font-bold text-orange">{{ $price }}</p>
             </div>
             <div class="py-3 border-t border-gray-800">

@@ -14,6 +14,6 @@
     </div>
 
     <div class="flex justify-center mt-4">
-        <x-button>Ver Mais</x-button>
+        <x-button :href="route('car.index')">Ver Mais</x-button>
     </div>
 </section>

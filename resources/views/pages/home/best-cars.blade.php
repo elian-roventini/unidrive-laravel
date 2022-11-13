@@ -20,7 +20,7 @@
     </div>
 
     <div class="flex justify-center">
-        <x-button>Ver Mais</x-button>
+        <x-button :href="route('car.index')">Ver Mais</x-button>
     </div>
 
 </div>
