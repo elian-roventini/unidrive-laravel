@@ -16,6 +16,11 @@
             <x-nav.link :href="route('about.index')" :active="request()->routeIs('about.index')">
                 {{ __('Sobre Nós') }}
             </x-nav.link>
+            @auth
+                <x-nav.link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                    {{ __('Painel') }}
+                </x-nav.link>
+            @endauth
         </div>
 
         @guest
@@ -102,6 +107,11 @@
             <x-nav.responsive-link :href="route('about.index')" :active="request()->routeIs('about.index')">
                 {{ __('Sobre Nós') }}
             </x-nav.responsive-link>
+            @auth
+                <x-nav.link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                    {{ __('Painel') }}
+                </x-nav.link>
+            @endauth
         </div>
 
         @guest

@@ -21,7 +21,7 @@ Route::prefix('/carro/')->name('car.')->group(function () {
     Route::get('{modelo}', [CarController::class, 'show'])->name('show');
 });
 
-Route::prefix('/painel/')->name('dashboard.')->group(function () {
+Route::prefix('/painel/')->name('dashboard.')->middleware('auth')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('index');
 });
 

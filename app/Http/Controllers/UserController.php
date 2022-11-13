@@ -10,13 +10,11 @@ class UserController extends Controller
 {
     public function store(UserPostRequest $request): RedirectResponse
     {
-        $user = [
-          'nome' => $request->validated()['name'],
-          'email' => $request->validated()['email'],
-          'senha' => $request->validated()['password'],
-        ];
-
-        $postUserResponse = Http::unidrive()->acceptJson()->asJson()->post('/usuario', $user);
+        $postUserResponse = Http::unidrive()->post('/usuario', [
+            'nome' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'senha' => $request->validated()['password'],
+        ]);
 
         if ($postUserResponse->failed()) {
             return back()

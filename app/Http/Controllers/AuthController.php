@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginPostRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -12,7 +11,7 @@ class AuthController extends Controller
 {
     public function login(LoginPostRequest $request)
     {
-        $postAuthResponse = Http::unidrive()->acceptJson()->asJson()->post('/auth', [
+        $postAuthResponse = Http::unidrive()->post('/auth', [
             'email' => $request->email,
             'senha' => $request->senha
         ]);

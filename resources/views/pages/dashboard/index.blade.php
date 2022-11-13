@@ -11,16 +11,16 @@
                 <h2 class="text-md tracking-wider font-bold uppercase mb-2">Usuário</h2>
 
                 <p class="text-orange font-bold">Nome:</p>
-                <p class="">{{ $usuario['nome'] ?? '00000' }}</p>
+                <p class="">{{ $usuario->nome ?? 'Não Cadastrado' }}</p>
 
                 <p class="text-orange font-bold">E-mail:</p>
-                <p class="">{{ $usuario['email'] ?? '00000' }}</p>
+                <p class="">{{ $usuario->email ?? 'Não Cadastrado' }}</p>
 
                 <p class="text-orange font-bold">Endereço:</p>
-                <p class="">{{ $usuario['endereco'] ?? '00000' }}</p>
+                <p class="">{{ $usuario->endereco ?? 'Não Cadastrado' }}</p>
 
                 <p class="text-orange font-bold">Complemento:</p>
-                <p class="">{{ $usuario['complemento'] ?? '00000' }}</p>
+                <p class="">{{ $usuario->complemento ?? 'Não Cadastrado' }}</p>
             </div>
 
             <form class="grid md:w-1/2 bg-blue-dark text-white p-4 rounded-lg gap-x-4" method="POST" action="{{ route('car.store') }}">
@@ -80,11 +80,11 @@
                     <tbody>
                         @foreach($agendamentos as $agendamento)
                             <tr>
-                                <td>{{ $agendamento['nome'] }}</td>
-                                <td>{{ $agendamento['telefone'] }}</td>
-                                <td>{{ $agendamento['email'] }}</td>
-                                <td>{{ $agendamento['dt_agendamento'] }}</td>
-                                <td>{{ $agendamento['modelo'] }}</td>
+                                <td>{{ $agendamento->nome }}</td>
+                                <td>{{ $agendamento->telefone }}</td>
+                                <td>{{ $agendamento->email }}</td>
+                                <td>{{ $agendamento->dt_agendamento }}</td>
+                                <td>{{ $agendamento->modelo }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -92,22 +92,22 @@
             </div>
         </div>
 
-        <div class="py-8"></div>
+{{--        <div class="py-8"></div>--}}
 
-        <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">Meus Carros</h1>
+{{--        <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">Meus Carros</h1>--}}
 
-        <div class="flex flex-col md:flex-row flex-wrap gap-4">
-            @foreach($carros as $carro)
-                <x-car.card
-                    :image="$carro['image']"
-                    :name="$carro['name']"
-                    :price="$carro['price']"
-                    :description="$carro['description']"
-                    :date="$carro['date']"
-                    :place="$carro['place']"
-                    :distance="$carro['distance']"
-                />
-            @endforeach
-        </div>
+{{--        <div class="flex flex-col md:flex-row flex-wrap gap-4">--}}
+{{--            @foreach($carros as $carro)--}}
+{{--                <x-car.card--}}
+{{--                    :image="$carro->image"--}}
+{{--                    :name="$carro->name"--}}
+{{--                    :price="$carro->price"--}}
+{{--                    :description="$carro->description"--}}
+{{--                    :date="$carro->date"--}}
+{{--                    :place="$carro->place"--}}
+{{--                    :distance="$carro->distance"--}}
+{{--                />--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
     </div>
 @endsection

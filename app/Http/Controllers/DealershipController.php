@@ -15,7 +15,7 @@ class DealershipController extends Controller
             'cnpj' => $request->validated()['cnpj'],
         ];
 
-        $postDealershipResponse = Http::unidrive()->acceptJson()->asJson()->post('/concessionaria', $dealership);
+        $postDealershipResponse = Http::unidrive(true)->post('/concessionaria', $dealership);
 
         if ($postDealershipResponse->failed()) {
             return back()
