@@ -12,7 +12,7 @@
 
                 <div class="lg:col-span-2">
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                        <x-form.input x-col="md:col-span-5" name="cpf_cnpj" placeholder="CPF/CNPJ"/>
+                        <x-form.input x-col="md:col-span-5" name="email" placeholder="E-mail"/>
                         <x-form.input x-col="md:col-span-5" name="password" placeholder="Senha" type="password"/>
 
                         <div class="md:col-span-5 inline-flex justify-end mt-3">
