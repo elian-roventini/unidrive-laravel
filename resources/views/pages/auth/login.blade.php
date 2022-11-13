@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="bg-white text-black p-8 my-4 mx-auto">
+    <div class="bg-white text-black p-8 mx-auto">
 
         @if(session()->has('success'))
             <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md mb-6" role="alert">

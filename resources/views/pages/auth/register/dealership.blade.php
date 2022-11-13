@@ -3,7 +3,7 @@
 @section('title', 'Cadastrar Concessionária')
 
 @section('content')
-    <div class="bg-white text-black p-8 my-4 mx-auto">
+    <div class="bg-white text-black p-8 mx-auto">
         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
             <p class="font-medium text-lg">Cadastrar Concessionária</p>
 
