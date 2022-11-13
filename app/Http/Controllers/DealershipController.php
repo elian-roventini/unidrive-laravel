@@ -10,12 +10,10 @@ class DealershipController extends Controller
 {
     public function store(DealershipPostRequest $request): RedirectResponse
     {
-        $dealership = [
+        $postDealershipResponse = Http::unidrive(true)->post('/concessionaria', [
             'nome' => $request->validated()['nome'],
             'cnpj' => $request->validated()['cnpj'],
-        ];
-
-        $postDealershipResponse = Http::unidrive(true)->post('/concessionaria', $dealership);
+        ]);
 
         if ($postDealershipResponse->failed()) {
             return back()

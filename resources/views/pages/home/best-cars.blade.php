@@ -6,21 +6,25 @@
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @foreach($cars as $car)
+        @forelse($carros as $carro)
             <x-car.card
-                :image="$car['image']"
-                :name="$car['name']"
-                :price="$car['price']"
-                :description="$car['description']"
-                :date="$car['date']"
-                :place="$car['place']"
-                :distance="$car['distance']"
+                :image="$carro['image'] ?? ''"
+                :name="$carro['name'] ?? ''"
+                :price="$carro['price'] ?? ''"
+                :description="$carro['description'] ?? ''"
+                :date="$carro['date'] ?? ''"
+                :place="$carro['place'] ?? ''"
+                :distance="$carro['distance'] ?? ''"
             />
-        @endforeach
+        @empty
+            <h1 class="text-2xl font-bold text-black">Não existem carros cadastrados</h1>
+        @endforelse
     </div>
 
-    <div class="flex justify-center">
-        <x-button :href="route('car.index')">Ver Mais</x-button>
-    </div>
+    @if($carros)
+        <div class="flex justify-center">
+            <x-button :href="route('car.index')">Ver Mais</x-button>
+        </div>
+    @endif
 
 </div>
