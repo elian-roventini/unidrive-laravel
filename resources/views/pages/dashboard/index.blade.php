@@ -99,38 +99,42 @@
 
         <div class="flex flex-col md:flex-row gap-4">
             <div class="grid w-full bg-blue-dark text-white p-4 rounded-lg gap-4 overflow-x-auto">
-                <div class="text-sm font-medium text-center text-white border-b border-white dark:text-white dark:border-white">
-                    <ul class="flex flex-wrap -mb-px">
-                        <li class="mr-2">
-                            <a href="#" class="inline-block p-4 text-orange rounded-t-lg border-b-2 border-orange active dark:text-orange dark:border-orange" aria-current="page">Solicitações</a>
-                        </li>
-                        <li class="mr-2">
-                            <a href="#" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-white hover:border-white dark:hover:text-white">Aceitos</a>
-                        </li>
-                    </ul>
-                </div>
-                <table>
-                    <thead class="text-orange">
-                        <tr>
-                            <th>Nome solicitante</th>
-                            <th>Telefone</th>
-                            <th>E-mail</th>
-                            <th>Data</th>
-                            <th>Carro solicitado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($agendamentos as $agendamento)
+{{--                <div class="text-sm font-medium text-center text-white border-b border-white dark:text-white dark:border-white">--}}
+{{--                    <ul class="flex flex-wrap -mb-px">--}}
+{{--                        <li class="mr-2">--}}
+{{--                            <a href="#" class="inline-block p-4 text-orange rounded-t-lg border-b-2 border-orange active dark:text-orange dark:border-orange" aria-current="page">Solicitações</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="mr-2">--}}
+{{--                            <a href="#" class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-white hover:border-white dark:hover:text-white">Aceitos</a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+                @if($agendamentos)
+                    <table>
+                        <thead class="text-orange">
                             <tr>
-                                <td>{{ $agendamento->nome }}</td>
-                                <td>{{ $agendamento->telefone }}</td>
-                                <td>{{ $agendamento->email }}</td>
-                                <td>{{ $agendamento->dt_agendamento }}</td>
-                                <td>{{ $agendamento->modelo }}</td>
+                                <th>Nome solicitante</th>
+                                <th>Telefone</th>
+                                <th>E-mail</th>
+                                <th>Data</th>
+                                <th>Carro solicitado</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($agendamentos as $agendamento)
+                                <tr>
+                                    <td>{{ $agendamento->nome }}</td>
+                                    <td>{{ $agendamento->telefone }}</td>
+                                    <td>{{ $agendamento->email }}</td>
+                                    <td>{{ $agendamento->dt_agendamento }}</td>
+                                    <td>{{ $agendamento->modelo }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <h1 class="text-md text-white">Não existem agendamentos cadastrados</h1>
+                @endif
             </div>
         </div>
 
