@@ -52,14 +52,16 @@ class CarController extends Controller
     public function store(CarPostRequest $request)
     {
         $postCarroResponse = Http::unidrive(true)->post('/carro', [
-            'ano' => $request->ano,
-            'cor' => $request->cor,
-            'marca' => $request->marca,
-            'modelo' => $request->modelo,
-            'documentacao' => $request->documentacao,
-            'placa' => $request->placa,
-            'quilometragem' => $request->quilometragem,
-            'renovam' => $request->renovam,
+            [
+                'ano' => $request->ano,
+                'cor' => $request->cor,
+                'marca' => $request->marca,
+                'modelo' => $request->modelo,
+                'documentacao' => $request->documentacao,
+                'placa' => $request->placa,
+                'quilometragem' => $request->quilometragem,
+                'renovam' => $request->renovam,
+            ]
         ]);
 
         if ($postCarroResponse->failed()) {
