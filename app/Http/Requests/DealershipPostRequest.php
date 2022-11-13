@@ -25,7 +25,7 @@ class DealershipPostRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'string'],
-            'cnpj' => ['required', 'string', 'unique:concessionaria'],
+            'cnpj' => ['required', 'string', 'unique:concessionaria', 'formato_cnpj'],
         ];
     }
 

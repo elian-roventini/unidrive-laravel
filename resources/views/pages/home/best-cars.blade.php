@@ -7,15 +7,7 @@
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse($carros as $carro)
-            <x-car.card
-                :image="$carro['image'] ?? ''"
-                :name="$carro['name'] ?? ''"
-                :price="$carro['price'] ?? ''"
-                :description="$carro['description'] ?? ''"
-                :date="$carro['date'] ?? ''"
-                :place="$carro['place'] ?? ''"
-                :distance="$carro['distance'] ?? ''"
-            />
+            <x-car.card :carro="$carro" />
         @empty
             <h1 class="text-2xl font-bold text-black">Não existem carros cadastrados</h1>
         @endforelse

@@ -24,13 +24,13 @@ class UserPostRequest extends FormRequest
             'nome' => ['required'],
             'email' => ['required', 'unique:usuario', 'email'],
             'senha' => ['required', Password::min(7)],
-//            'cpf' => ['required'],
+//            'cpf' => ['required', 'cpf'],
 //            'cnh' => ['required'],
-//            'telefone' => ['required'],
+//            'telefone' => ['required', 'formato_ddd_celular'],
 //            'endereço' => ['required'],
 //            'numero' => ['required'],
 //            'complemento' => ['required'],
-//            'cep' => ['required'],
+//            'cep' => ['required', 'formato_cep'],
         ];
     }
 

@@ -46,7 +46,10 @@ class CarController extends Controller
                 ]);
         }
 
-        return view('pages.car.show', compact('carro', 'carros'));
+        return view('pages.car.show', [
+            'carro' => $carro[0] ?? [],
+            'carros' => $carros
+        ]);
     }
 
     public function store(CarPostRequest $request)
