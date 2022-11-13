@@ -25,7 +25,7 @@ class DealershipPostRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'string'],
-            'cnpj' => ['required', 'int', 'unique:concessionaria'],
+            'cnpj' => ['required', 'string', 'unique:concessionaria'],
         ];
     }
 
@@ -38,7 +38,6 @@ class DealershipPostRequest extends FormRequest
             'required' => 'O campo :attribute é necessário.',
             'unique' => 'O :attribute já está cadastrado na nossa base de dados.',
             'string' => 'O :attribute deve ser apenas letras e números.',
-            'int' => 'O :attribute deve ser apenas números inteiros.',
         ];
     }
 }
