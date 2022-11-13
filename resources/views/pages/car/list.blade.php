@@ -5,15 +5,7 @@
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         @foreach($carros as $carro)
-            <x-car.card
-                :image="$carro['image'] ?? ''"
-                :name="$carro['name'] ?? ''"
-                :price="$carro['price'] ?? ''"
-                :description="$carro['description'] ?? ''"
-                :date="$carro['date'] ?? ''"
-                :place="$carro['place'] ?? ''"
-                :distance="$carro['distance'] ?? ''"
-            />
+            <x-car.card :carro="$carro" />
         @endforeach
     </div>
 
