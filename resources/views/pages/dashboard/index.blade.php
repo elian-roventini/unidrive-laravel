@@ -27,25 +27,25 @@
                 @csrf
                 <h2 class="text-md tracking-wider font-bold uppercase mb-6 col-span-6">Cadastrar Carro</h2>
 
-                <x-form.select x-col="md:col-span-6 lg:col-span-3" class="mt-3" name="marca" placeholder="Marca">
+                <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="marca" placeholder="Marca">
                     <option value="">Marca</option>
                 </x-form.select>
-                <x-form.select x-col="md:col-span-6 lg:col-span-3" class="mt-3" name="modelo" placeholder="Modelo">
+                <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="modelo" placeholder="Modelo">
                     <option value="">Modelo</option>
                 </x-form.select>
-                <x-form.select x-col="md:col-span-6 lg:col-span-3" class="mt-3" name="ano" placeholder="Ano">
+                <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="ano" placeholder="Ano">
                     <option value="">Ano</option>
                 </x-form.select>
-                <x-form.select x-col="md:col-span-6 lg:col-span-3" class="mt-3" name="cor" placeholder="Cor">
+                <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="cor" placeholder="Cor">
                     <option value="">Cor</option>
                 </x-form.select>
 
-                <x-form.input x-col="md:col-span-6" name="documentacao" placeholder="Documentação" />
-                <x-form.input x-col="md:col-span-6" name="placa" placeholder="Placa" />
-                <x-form.input x-col="md:col-span-6" name="quilometragem" placeholder="Quilometragem" />
-                <x-form.input x-col="md:col-span-6" name="renavam" placeholder="Renavam" />
+                <x-form.input x-col="col-span-6" name="documentacao" placeholder="Documentação" />
+                <x-form.input x-col="col-span-6" name="placa" placeholder="Placa" />
+                <x-form.input x-col="col-span-6" name="quilometragem" placeholder="Quilometragem" />
+                <x-form.input x-col="col-span-6" name="renavam" placeholder="Renavam" />
 
-                <div class="md:col-span-6 inline-flex justify-end mt-3">
+                <div class="col-span-6 inline-flex justify-end mt-3">
                     <x-button type="button">Cadastrar</x-button>
                 </div>
             </form>
@@ -56,7 +56,7 @@
         <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">Pedidos de TestDrive</h1>
 
         <div class="flex flex-col md:flex-row gap-4">
-            <div class="grid w-full bg-blue-dark text-white p-4 rounded-lg gap-4">
+            <div class="grid w-full bg-blue-dark text-white p-4 rounded-lg gap-4 overflow-x-auto">
                 <div class="text-sm font-medium text-center text-white border-b border-white dark:text-white dark:border-white">
                     <ul class="flex flex-wrap -mb-px">
                         <li class="mr-2">
@@ -67,7 +67,7 @@
                         </li>
                     </ul>
                 </div>
-                <table class="">
+                <table>
                     <thead class="text-orange">
                         <tr>
                             <th>Nome solicitante</th>
