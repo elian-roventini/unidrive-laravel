@@ -30,9 +30,9 @@
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                         @csrf
 
-                        <x-form.input x-col="md:col-span-5" name="name" placeholder="Nome"/>
+                        <x-form.input x-col="md:col-span-5" name="nome" placeholder="Nome"/>
                         <x-form.input x-col="md:col-span-5" name="email" placeholder="E-mail" type="email"/>
-                        <x-form.input x-col="md:col-span-5" name="password" placeholder="Senha" type="password"/>
+                        <x-form.input x-col="md:col-span-5" name="senha" placeholder="Senha" type="password"/>
 {{--                        <x-form.input x-col="md:col-span-3" name="cpf" placeholder="CPF"/>--}}
 {{--                        <x-form.input x-col="md:col-span-2" name="cnh" placeholder="CNH"/>--}}
 {{--                        <x-form.input x-col="md:col-span-5" name="telefone" placeholder="Telefone"/>--}}

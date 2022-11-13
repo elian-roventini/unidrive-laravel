@@ -21,9 +21,9 @@ class UserPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
+            'nome' => ['required'],
             'email' => ['required', 'unique:usuario', 'email'],
-            'password' => ['required', Password::min(7)],
+            'senha' => ['required', Password::min(7)],
 //            'cpf' => ['required'],
 //            'cnh' => ['required'],
 //            'telefone' => ['required'],
@@ -40,12 +40,12 @@ class UserPostRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome é necessário.',
-            'email.required' => 'O campo e-mail é necessário.',
-            'email.unique' => 'O e-mail já está cadastrado na nossa base de dados.',
-            'email.email' => 'O campo e-mail deve conter um e-mail válido.',
-            'password.required' => 'O campo senha é necessário.',
-            'password.min' => 'O campo senha deve conter ao menos 7 caracteres.',
+            'required' => 'O campo :attribute é necessário.',
+            'email' => 'O campo :attribute deve ser um e-mail válido.',
+            'unique' => 'O :attribute já está cadastrado na nossa base de dados.',
+            'string' => 'O :attribute deve ser apenas letras e números.',
+            'int' => 'O :attribute deve ser apenas números inteiros.',
+            'min' => 'O campo :attribute deve conter ao menos 7 caracteres.',
         ];
     }
 }
