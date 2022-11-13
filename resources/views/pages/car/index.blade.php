@@ -4,6 +4,10 @@
 
 @section('content')
     <div class="bg-white text-black p-8 mx-auto">
+
+        <x-message.success />
+        <x-message.error />
+
         <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">Pesquisar Carros</h1>
 
         <div class="flex flex-col md:flex-row">

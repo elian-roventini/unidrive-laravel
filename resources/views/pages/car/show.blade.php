@@ -4,7 +4,11 @@
 
 @section('content')
     <div class="bg-white text-black p-8 mx-auto">
-        <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">{{ $car['name'] }}</h1>
+
+        <x-message.success />
+        <x-message.error />
+
+        <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">{{ $carro['name'] ?? '' }}</h1>
 
         <div class="flex flex-col md:flex-row">
             <div class="grow md:mr-8">
@@ -12,17 +16,17 @@
 
                 <div class="bg-blue-dark rounded-lg mt-8">
                     <div class="p-4 md:flex md:flex-wrap justify-between">
-                        <h2 class="text-white text-xl font-bold">{{ $car['name'] }}</h2>
-                        <h3 class="text-orange">{{ $car['price'] }}</h3>
+                        <h2 class="text-white text-xl font-bold">{{ $carro['name'] ?? '' }}</h2>
+                        <h3 class="text-orange">{{ $carro['price'] ?? '' }}</h3>
                     </div>
 
                     <hr>
 
                     <div class="p-4 md:flex md:flex-wrap md:space-x-4">
-                        <p class="text-white">Lugar <small class="font-bold">{{ $car['place'] }}</small></p>
-                        <p class="text-white">Ano <small class="font-bold">{{ $car['date'] }}</small></p>
-                        <p class="text-white">KM <small class="font-bold">{{ $car['distance'] }}</small></p>
-                        <p class="text-white">Versão <small class="font-bold">{{ $car['description'] }}</small></p>
+                        <p class="text-white">Lugar <small class="font-bold">{{ $carro['place'] ?? '' }}</small></p>
+                        <p class="text-white">Ano <small class="font-bold">{{ $carro['date'] ?? '' }}</small></p>
+                        <p class="text-white">KM <small class="font-bold">{{ $carro['distance'] ?? '' }}</small></p>
+                        <p class="text-white">Versão <small class="font-bold">{{ $carro['description'] ?? '' }}</small></p>
                     </div>
                 </div>
 
@@ -62,17 +66,19 @@
 
                 <div class="mt-8">
                     <div class="flex flex-col gap-4">
-                        @foreach($cars as $car)
+                        @forelse($carros as $carro)
                             <x-car.card
-                                :image="$car['image']"
-                                :name="$car['name']"
-                                :price="$car['price']"
-                                :description="$car['description']"
-                                :date="$car['date']"
-                                :place="$car['place']"
-                                :distance="$car['distance']"
+                                :image="$carro['image'] ?? ''"
+                                :name="$carro['name'] ?? ''"
+                                :price="$carro['price'] ?? ''"
+                                :description="$carro['description'] ?? ''"
+                                :date="$carro['date'] ?? ''"
+                                :place="$carro['place'] ?? ''"
+                                :distance="$carro['distance'] ?? ''"
                             />
-                        @endforeach
+                        @empty
+                            <p>Não existem carros cadastrados</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
