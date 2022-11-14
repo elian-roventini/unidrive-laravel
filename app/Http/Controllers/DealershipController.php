@@ -18,9 +18,10 @@ class DealershipController extends Controller
         if ($postDealershipResponse->failed()) {
             return back()
                 ->with([
-                    'error' => 'Concessionária não pode ser cadastrado!'
+                    'error' => 'Concessionária não pode ser cadastrado!',
+                    'error-description' => $postDealershipResponse->body()
                 ])
-                ->withInput($request->safe());
+                ->withInput($request->validated());
         }
 
         return back()->with([

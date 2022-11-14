@@ -123,11 +123,11 @@
                         <tbody>
                             @foreach($agendamentos as $agendamento)
                                 <tr>
-                                    <td>{{ $agendamento->nome }}</td>
-                                    <td>{{ $agendamento->telefone }}</td>
-                                    <td>{{ $agendamento->email }}</td>
-                                    <td>{{ $agendamento->dt_agendamento }}</td>
-                                    <td>{{ $agendamento->modelo }}</td>
+                                    <td>{{ $usuario->nome ?? 'Não Cadastrado' }}</td>
+                                    <td>{{ $usuario->telefone ?? 'Não Cadastrado' }}</td>
+                                    <td>{{ $usuario->email ?? 'Não Cadastrado' }}</td>
+                                    <td>{{ \Carbon\Carbon::create($agendamento->dt_agendamento)->format('d/m/Y') ?? 'Não Cadastrado' }}</td>
+                                    <td>{{ ($agendamento->carro->marca . ' ' . $agendamento->carro->modelo) ?? 'Não Cadastrado' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

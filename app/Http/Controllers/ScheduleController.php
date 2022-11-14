@@ -13,9 +13,7 @@ class ScheduleController extends Controller
     {
         $request->validate([
             'date' => ['required', 'date'],
-            'carro' => ['required']
         ], [
-            'carro.required' => 'O campo data é necessário.',
             'date.required' => 'O campo data é necessário.',
             'date' => 'O campo :attribute deve conter uma data válida.',
         ]);
@@ -37,13 +35,6 @@ class ScheduleController extends Controller
                 'hr_inicial' => Carbon::create($request->date)->addHours(15)->format('Y-m-d\TH:m:s.u'),
         ]);
 
-//        dd([
-//                'carro' => $carro[0] ?? [],
-//                'dt_agendamento' => Carbon::create($request->date)->format('Y-m-d\TH:m:s.u'),
-//                'hr_final' => Carbon::create($request->date)->addHours(12)->format('Y-m-d\TH:m:s.u'),
-//                'hr_inicial' => Carbon::create($request->date)->addHours(15)->format('Y-m-d\TH:m:s.u'),
-//        ], $postScheduleResponse, $postScheduleResponse->body());
-
         if ($postScheduleResponse->failed()) {
             return back()
                 ->with([
@@ -56,7 +47,7 @@ class ScheduleController extends Controller
         }
 
         return back()->with([
-            'success' => 'Usuário cadastrado!'
+            'success' => 'Agendamento cadastrado!'
         ]);
     }
 }

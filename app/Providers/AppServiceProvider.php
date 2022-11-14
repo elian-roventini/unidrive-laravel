@@ -26,12 +26,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Http::macro('unidrive', function ($withAuthorization = false) {
+            $url = env('API_URL', 'http://localhost:8080');
+
             return $withAuthorization
-                ? Http::baseUrl('http://localhost:8080')->acceptJson()->asJson()
+                ? Http::baseUrl($url)->acceptJson()->asJson()
                     ->withHeaders([
                         'Authorization' => session('token')
                     ])
-                : Http::baseUrl('http://localhost:8080')->acceptJson()->asJson();
+                : Http::baseUrl($url)->acceptJson()->asJson();
         });
     }
 }
