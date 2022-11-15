@@ -39,8 +39,8 @@ class ScheduleController extends Controller
         $postScheduleResponse = Http::unidrive(true)->post('/agendamento', [
                 'carro' => $carro[0],
                 'dt_agendamento' => Carbon::create($request->date)->format('Y-m-d\TH:m:s.u'),
-                'hr_final' => Carbon::create($request->date)->addHours($initialTime[0])->addMinutes($initialTime[1])->format('Y-m-d\TH:m:s.u'),
-                'hr_inicial' => Carbon::create($request->date)->addHours($finalTime[0])->addMinutes($finalTime[1])->format('Y-m-d\TH:m:s.u'),
+                'hr_inicial' => Carbon::create($request->date)->addHours($initialTime[0])->addMinutes($initialTime[1])->format('Y-m-d\TH:m:s.u'),
+                'hr_final' => Carbon::create($request->date)->addHours($finalTime[0])->addMinutes($finalTime[1])->format('Y-m-d\TH:m:s.u'),
         ]);
 
         if ($postScheduleResponse->failed()) {
