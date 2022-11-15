@@ -9,9 +9,9 @@
         @endforeach
     </div>
 
-    @if($carros)
+    {{-- @if($carros)
         <div class="flex justify-center mt-4">
             <x-button :href="route('car.index')">Ver Mais</x-button>
         </div>
-    @endif
+    @endif --}}
 </section>

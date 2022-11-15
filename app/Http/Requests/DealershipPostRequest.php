@@ -26,6 +26,14 @@ class DealershipPostRequest extends FormRequest
         return [
             'nome' => ['required', 'string', 'unique:concessionaria'],
             'cnpj' => ['required', 'string', 'unique:concessionaria', 'formato_cnpj'],
+            'email' => ['nullable', 'email', 'unique:concessionaria'],
+            'telefone' => ['nullable', 'telefone_com_ddd'],
+            'cep' => ['nullable', 'string'],
+            'cidade' => ['nullable', 'string'],
+            'estado' => ['nullable', 'string'],
+            'endereço' => ['nullable', 'string'],
+            'numero' => ['nullable', 'integer'],
+            'complemento' => ['nullable', 'string'],
         ];
     }
 

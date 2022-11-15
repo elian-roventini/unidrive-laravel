@@ -24,15 +24,18 @@ class CarPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'ano' => ['required', 'integer'],
+            'ano' => ['required', 'date_format:Y', 'min:2000', 'max:' . now()->format('Y') + 3],
             'cor' => ['required', 'string'],
             'marca' => ['required', 'string'],
             'modelo' => ['required', 'string'],
-            'documentacao' => ['required', 'unique:carro', 'string'],
-            'placa' => ['required', 'unique:carro', 'string'],
-            'quilometragem' => ['required', 'integer'],
-            'renovam' => ['required', 'unique:carro', 'string'],
-        ];
+            'documentacao' => ['required', 'unique:carro', 'string'], // remover
+            // Regex: '/[A-Z]{3}[0-9][0-9A-Z][0-9]{2}/' Ex: 'AAA0A00'
+            'placa' => ['required', 'unique:carro', 'string', 'formato_placa_de_veiculo'], 
+            'quilometragem' => ['required', 'integer', 'max:100000', 'min:0'],
+            // Regex(com pontuação) '(\d{4})[.](\d{6})-(\d{1})' Ex 1234.123456-1
+            // Regex(sem pontuação) '(\d{4})(\d{6})(\d{1})' Ex 12341234561
+            'renovam' => ['required', 'unique:carro', 'string', 'regex:/(\d{4})(\d{6})(\d{1})/i'], 
+        ]; 
     }
 
     /**

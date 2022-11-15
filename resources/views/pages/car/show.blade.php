@@ -35,11 +35,11 @@
 
                     <div class="flex flex-wrap">
                         <ul class="p-4">
-                        @forelse([] as $acessorio)
-                            <li class="text-gray-500">Ar condicionado</li>
-                        @empty
-                            <li class="text-gray-500">Não existem acessórios cadastrados</li>
-                        @endforelse
+                            @forelse([] as $acessorio)
+                                <li class="text-gray-500">Ar condicionado</li>
+                            @empty
+                                <li class="text-gray-500">Não existem acessórios cadastrados</li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>
@@ -49,7 +49,9 @@
                 <form class="flex flex-col border-1 md:px-8 border-1" action="{{ route('schedule.store') }}" method="POST">
                     @csrf
 
-                    <x-form.input x-col="md:col-span-6" name="date" placeholder="DD/MM/AAAA" type="date"/>
+                    <x-form.input x-col="md:col-span-6" name="date" type="date"/>
+                    <x-form.input x-col="md:col-span-6" name="initial_time" type="time"/>
+                    <x-form.input x-col="md:col-span-6" name="final_time" type="time"/>
                     <input type="hidden" name="carro" value="{{ $carro->modelo }}">
 
                     <div class="inline-flex justify-end mt-3">
@@ -58,6 +60,8 @@
                 </form>
 
                 <div class="mt-8">
+                    <h2 class="text-black text-xl p-4 uppercase">Veículos relacionados</h2>
+                    
                     <div class="flex flex-col gap-4">
                         @forelse($carros as $carro)
                             <x-car.card :carro="$carro" />

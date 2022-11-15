@@ -1,6 +1,7 @@
 @props([
     "placeholder" => "",
-    "value" => ""
+    "value" => "",
+    "example" => "",
 ])
 
 @php
@@ -38,4 +39,8 @@
     @error($attributes['name'])
         <small class="text-red-500 alert alert-danger">{{ $message }}</small>
     @enderror
+
+    @if($attributes['x-example'])
+        <small class="col-span-6 small text-orange">Ex: {{ $attributes['x-example'] }}</small>
+    @endif
 </div>

@@ -25,19 +25,8 @@
 
         @guest
             <div class="hidden md:flex md:items-center md:ml-6 space-x-2">
-                <x-button :href="route('auth.login')" outline>Login</x-button>
-                <x-dropdown>
-                    <x-slot name="trigger">
-                        <x-button outline>Cadastrar</x-button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <div class="grid justify-items-end px-4 py-2 space-y-2">
-                            <x-button :href="route('user.create')">Usuário</x-button>
-                            <x-button :href="route('dealership.create')">Concessionária</x-button>
-                        </div>
-                    </x-slot>
-                </x-dropdown>
+                <x-button :href="route('auth.login')" outline>Logar</x-button>
+                <x-button :href="route('user.create')" outline>Registrar</x-button>
             </div>
         @endguest
 
@@ -118,7 +107,6 @@
             <div class="flex flex-col space-y-4">
                 <x-button :href="route('auth.login')" class="w-40" outline>Login</x-button>
                 <x-button :href="route('user.create')" class="w-40">Cadastrar <br> Usuário</x-button>
-                <x-button :href="route('dealership.create')" class="w-40">Cadastrar <br> Concessionária</x-button>
             </div>
         @endguest
 

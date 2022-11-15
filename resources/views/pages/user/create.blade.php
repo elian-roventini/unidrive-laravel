@@ -19,13 +19,13 @@
                         <x-form.input x-col="md:col-span-5" name="nome" placeholder="Nome"/>
                         <x-form.input x-col="md:col-span-5" name="email" placeholder="E-mail" type="email"/>
                         <x-form.input x-col="md:col-span-5" name="senha" placeholder="Senha" type="password"/>
-{{--                        <x-form.input x-col="md:col-span-3" name="cpf" placeholder="CPF"/>--}}
-{{--                        <x-form.input x-col="md:col-span-2" name="cnh" placeholder="CNH"/>--}}
-{{--                        <x-form.input x-col="md:col-span-5" name="telefone" placeholder="Telefone"/>--}}
-{{--                        <x-form.input x-col="md:col-span-3" name="endereço" placeholder="Endereço"/>--}}
-{{--                        <x-form.input x-col="md:col-span-2" name="numero" placeholder="Número"/>--}}
-{{--                        <x-form.input x-col="md:col-span-5" name="complemento" placeholder="Complemento"/>--}}
-{{--                        <x-form.input x-col="md:col-span-5" name="cep" placeholder="CEP"/>--}}
+                        <x-form.input x-col="md:col-span-3" name="cpf" placeholder="CPF"/>
+                        <x-form.input x-col="md:col-span-2" name="cnh" placeholder="CNH"/>
+                        <x-form.input x-col="md:col-span-5" name="telefone" placeholder="Telefone"/>
+                        <x-form.input x-col="md:col-span-3" name="endereço" placeholder="Endereço"/>
+                        <x-form.input x-col="md:col-span-2" name="numero" placeholder="Número"/>
+                        <x-form.input x-col="md:col-span-5" name="complemento" placeholder="Complemento"/>
+                        <x-form.input x-col="md:col-span-5" name="cep" placeholder="CEP"/>
 
                         <div class="md:col-span-5 inline-flex justify-end mt-3">
                             <x-button type="button">Cadastrar</x-button>

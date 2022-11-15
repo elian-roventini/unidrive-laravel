@@ -31,11 +31,11 @@ Route::prefix('/painel/')->name('dashboard.')->middleware('auth')->group(functio
 });
 
 Route::prefix('/usuario/')->name('user.')->group(function () {
-    Route::view('', 'pages.auth.register.user')->name('create');
+    Route::view('', 'pages.user.create')->name('create');
     Route::post('', [UserController::class, 'store'])->name('store');
 });
 
 Route::prefix('/concessionaria/')->name('dealership.')->group(function () {
-    Route::view('', 'pages.auth.register.dealership')->name('create');
+    Route::view('', 'pages.dealership.create')->name('create');
     Route::post('', [DealershipController::class, 'store'])->name('store');
 });

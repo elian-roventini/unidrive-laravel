@@ -24,13 +24,13 @@ class UserPostRequest extends FormRequest
             'nome' => ['required'],
             'email' => ['required', 'unique:usuario', 'email'],
             'senha' => ['required', Password::min(7)],
-//            'cpf' => ['required', 'cpf'],
-//            'cnh' => ['required'],
-//            'telefone' => ['required', 'formato_ddd_celular'],
-//            'endereço' => ['required'],
-//            'numero' => ['required'],
-//            'complemento' => ['required'],
-//            'cep' => ['required', 'formato_cep'],
+            'cpf' => ['nullable', 'cpf', 'unique:usuario'],
+            'cnh' => ['nullable', 'string', 'unique:usuario'],
+            'telefone' => ['nullable', 'celular_com_ddd'],
+            'endereço' => ['nullable', 'string'],
+            'numero' => ['nullable', 'integer'],
+            'complemento' => ['nullable', 'string'],
+            'cep' => ['nullable', 'formato_cep'],
         ];
     }
 
@@ -44,7 +44,7 @@ class UserPostRequest extends FormRequest
             'email' => 'O campo :attribute deve ser um e-mail válido.',
             'unique' => 'O :attribute já está cadastrado na nossa base de dados.',
             'string' => 'O :attribute deve ser apenas letras e números.',
-            'int' => 'O :attribute deve ser apenas números inteiros.',
+            'integer' => 'O :attribute deve ser apenas números inteiros.',
             'min' => 'O campo :attribute deve conter ao menos 7 caracteres.',
         ];
     }
