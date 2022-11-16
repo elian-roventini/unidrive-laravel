@@ -28,15 +28,4 @@ class LoginPostRequest extends FormRequest
             'senha' => ['required']
         ];
     }
-
-    /**
-     * Get the validation error messages
-     */
-    public function messages()
-    {
-        return [
-            'required' => 'O campo :attribute é necessário.',
-            'email' => 'O campo :attribute deve ser um e-mail válido.',
-        ];
-    }
 }

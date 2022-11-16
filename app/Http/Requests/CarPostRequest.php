@@ -13,7 +13,7 @@ class CarPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -36,19 +36,5 @@ class CarPostRequest extends FormRequest
             // Regex(sem pontuação) '(\d{4})(\d{6})(\d{1})' Ex 12341234561
             'renovam' => ['required', 'unique:carro', 'string', 'regex:/(\d{4})(\d{6})(\d{1})/i'], 
         ]; 
-    }
-
-    /**
-     * Get the validation error messages
-     */
-    public function messages()
-    {
-        return [
-            'required' => 'O campo :attribute é necessário.',
-            'unique' => 'O :attribute já está cadastrado na nossa base de dados.',
-            'string' => 'O :attribute deve ser apenas letras e números.',
-            'integer' => 'O :attribute deve ser apenas números inteiros.',
-            'float' => 'O :attribute deve ser apenas números.',
-        ];
     }
 }

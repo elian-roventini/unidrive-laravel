@@ -13,7 +13,7 @@ class DealershipPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -34,18 +34,6 @@ class DealershipPostRequest extends FormRequest
             'endereço' => ['nullable', 'string'],
             'numero' => ['nullable', 'integer'],
             'complemento' => ['nullable', 'string'],
-        ];
-    }
-
-    /**
-     * Get the validation error messages
-     */
-    public function messages()
-    {
-        return [
-            'required' => 'O campo :attribute é necessário.',
-            'unique' => 'O :attribute já está cadastrado na nossa base de dados.',
-            'string' => 'O :attribute deve ser apenas letras e números.',
         ];
     }
 }
