@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CarYearRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CarPostRequest extends FormRequest
@@ -24,7 +25,7 @@ class CarPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'ano' => ['required', 'date_format:Y', 'min:2000', 'max:' . now()->format('Y') + 3],
+            'ano' => ['required', new CarYearRule()],
             'cor' => ['required', 'string'],
             'marca' => ['required', 'string'],
             'modelo' => ['required', 'string'],
