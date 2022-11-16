@@ -8,8 +8,8 @@
     </section>
     <section id="dealerships" class="mx-auto px-10 p-10">
         <div class="space-y-2">
-            <h2 class="text-2xl uppercase tracking-wide">Concessionárias</h2>
-            <p class="text-xl font-light tracking-wide">Algumas das concessionárias que trabalhamos!</p>
+            <h2 class="text-2xl uppercase tracking-wide">{{ __('pages.home.dealerships.title') }}</h2>
+            <p class="text-xl font-light tracking-wide">{{ __('pages.home.dealerships.subtitle') }}</p>
         </div>
 
         <img class="mt-8" src="{{ asset('assets/images/dealerships.svg') }}" alt="lista de logo de concessionárias atendidas.">

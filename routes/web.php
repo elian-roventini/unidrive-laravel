@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::view('/sobre', 'pages.about-us.index')->name('about.index');
+Route::view('/termos-e-condicoes', 'pages.terms-and-conditions.index')->name('terms-and-conditions.index');
 
 Route::view('/login', 'pages.auth.login')->name('auth.login');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -18,7 +19,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::prefix('/carro/')->name('car.')->group(function () {
     Route::get('', [CarController::class, 'index'])->name('index');
-    Route::post('', [CarController::class, 'store'])->name('store');
+    Route::post('', [CarController::class, 'store'])->name('store')->middleware('auth');
     Route::get('{modelo}', [CarController::class, 'show'])->name('show');
 });
 
@@ -35,7 +36,7 @@ Route::prefix('/usuario/')->name('user.')->group(function () {
     Route::post('', [UserController::class, 'store'])->name('store');
 });
 
-Route::prefix('/concessionaria/')->name('dealership.')->group(function () {
+Route::prefix('/concessionaria/')->name('dealership.')->middleware('auth')->group(function () {
     Route::view('', 'pages.dealership.create')->name('create');
     Route::post('', [DealershipController::class, 'store'])->name('store');
 });

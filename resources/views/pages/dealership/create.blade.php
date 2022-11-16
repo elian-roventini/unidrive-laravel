@@ -30,7 +30,7 @@
                         <div class="md:col-span-6 inline-flex items-center">
 {{--                            @todo --}}
 {{--                            <x-form.input class="w-4 mr-4 float-left" type="checkbox" />--}}
-                            <p class="text-md text-black">Concordo com os <a href="/termos-condicoes" class="text-orange">termos e condições</a>.</p>
+                            <p class="text-md text-black">Concordo com os <a href="{{ route('pages.terms-and-conditions.index') }}" class="text-orange">termos e condições</a>.</p>
                         </div>
 
                         <div class="md:col-span-6 inline-flex justify-end mt-3">
