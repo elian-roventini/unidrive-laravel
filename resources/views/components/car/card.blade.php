@@ -10,16 +10,16 @@
         <div class="px-4">
             <div class="flex justify-between py-6">
                 <a href="{{ route('car.show', $carro->modelo) }}">
-                    <h5 class="text-md font-bold uppercase text-white">{{ $carro->modelo ?? '' }}</h5>
+                    <h5 class="text-md font-bold uppercase text-white">{{ $carro->marca ?? '' }} {{ $carro->modelo ?? '' }}</h5>
                 </a>
-                <p class="text-md font-bold text-orange">{{ $carro->valor ?? '' }}</p>
+                <p class="text-md font-bold text-orange">R$ {{ $carro->valor ?? '' }}</p>
             </div>
             <div class="py-3 border-t border-gray-800">
                 <p class="text-sm font-thin text-gray-400">{{ $carro->descricao ?? '' }}</p>
                 <div class="flex justify-between mt-2">
                     <p class="text-xs font-thin text-gray-500">{{ $carro->ano ?? '' }}</p>
-                    <p class="text-xs font-thin text-gray-500">{{ $carro->lugar ?? '' }}</p>
-                    <p class="text-xs font-thin text-gray-500">{{ $carro->quilometragem ?? '' }}</p>
+                    <p class="text-xs font-thin text-gray-500">{{ $carro->concessionaria->nomeFantasia ?? '' }}</p>
+                    <p class="text-xs font-thin text-gray-500">{{ $carro->quilometragem ?? '' }} KM</p>
                 </div>
             </div>
         </div>
