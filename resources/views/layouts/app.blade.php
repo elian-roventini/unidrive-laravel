@@ -8,6 +8,9 @@
         <title>UniDrive - @yield('title')</title>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://unpkg.com/jquery@3.6.1/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        @stack('scripts')
     </head>
     <body class="text-white bg-blue-dark">
         <header class="mx-auto px-10">

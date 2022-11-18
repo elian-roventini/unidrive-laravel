@@ -31,6 +31,10 @@ class CarController extends Controller
         $carro = json_decode($getCarroResponse->body());
         $carros = json_decode($getCarrosResponse->body());
 
+        $carrosFiltered = array_filter($carros, function ($carroAtual) use ($carro) {
+            return $carroAtual->id !== $carro[0]->id;
+        });
+
         if ($getCarrosResponse->failed() || $getCarroResponse->failed()) {
             return back()
                 ->with([
@@ -48,7 +52,7 @@ class CarController extends Controller
 
         return view('pages.car.show', [
             'carro' => $carro[0] ?? [],
-            'carros' => $carros
+            'carros' => $carrosFiltered
         ]);
     }
 
@@ -58,12 +62,13 @@ class CarController extends Controller
             [
                 'ano' => $request->ano,
                 'cor' => $request->cor,
+                'documentacao' => $request->documentacao,
                 'marca' => $request->marca,
                 'modelo' => $request->modelo,
-                'documentacao' => $request->documentacao,
-                'placa' => $request->placa,
+                'placa' => strtoupper($request->placa),
                 'quilometragem' => $request->quilometragem,
-                'renovam' => $request->renovam,
+                'renavam' => $request->renavam,
+                'valor' => $request->valor,
             ]
         ]);
 

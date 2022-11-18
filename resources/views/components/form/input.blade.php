@@ -27,14 +27,19 @@
 @endphp
 
 <div class="{{ $attributes['x-col'] }}">
-    <input
-        {{ $attributes->merge([
-            'type' => 'text',
-            'class' => $default_class,
-            'placeholder' => $placeholder
-        ]) }}
-        value="{{ old($attributes['name']) }}"
-    />
+    <label for="{{ $attributes['name'] }}">
+        @if($slot->isNotEmpty())
+            <span class="inline-block">{{ $slot }}</span>
+        @endif
+        <input
+            {{ $attributes->merge([
+                'type' => 'text',
+                'class' => $default_class,
+                'placeholder' => $placeholder
+            ]) }}
+            value="{{ old($attributes['name']) }}"
+        />
+    </label>
 
     @error($attributes['name'])
         <small class="text-red-500 alert alert-danger">{{ $message }}</small>

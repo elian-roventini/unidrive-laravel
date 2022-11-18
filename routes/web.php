@@ -37,6 +37,6 @@ Route::prefix('/usuario/')->name('user.')->group(function () {
 });
 
 Route::prefix('/concessionaria/')->name('dealership.')->middleware('auth')->group(function () {
-    Route::view('', 'pages.dealership.create')->name('create');
+    Route::get('', [DealershipController::class, 'create'])->name('create');
     Route::post('', [DealershipController::class, 'store'])->name('store');
 });

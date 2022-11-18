@@ -1,21 +1,33 @@
-<input 
-    {{ 
-        $attributes->merge([
-            'type' => 'checkbox', 
-            'class' => '
-                w-4 
-                h-4 
-                text-blue-600 
-                bg-gray-100 
-                rounded 
-                border-gray-300 
-                focus:ring-blue-500 
-                dark:focus:ring-blue-600 
-                dark:ring-offset-gray-800 
-                focus:ring-2 
-                dark:bg-gray-700 
-                dark:border-gray-600
-            '
-        ])
-    }}
->
+@php
+    $default_class = '
+        w-4
+        h-4
+        mr-2
+        bg-gray-100
+        rounded
+        border-gray-300
+        focus:ring-blue-500
+    ';
+    $error_class = '
+        w-4
+        h-4
+        mr-2
+        bg-gray-100
+        rounded
+        border-red-500
+        focus:ring-red-500
+        focus:ring-2
+    ';
+
+@endphp
+
+<div class="{{ $attributes['x-col'] }}">
+    <input
+        @error($attributes['name'])
+            {{ $attributes->merge([ 'class' => $error_class ]) }}
+        @else
+            {{ $attributes->merge([ 'class' => $default_class ]) }}
+        @enderror
+        type="checkbox"
+    />
+</div>

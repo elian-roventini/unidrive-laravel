@@ -24,16 +24,16 @@ class DealershipPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => ['required', 'string', 'unique:concessionaria'],
+            'nome' => ['required', 'string', 'unique:concessionaria,nome_fantasia'],
             'cnpj' => ['required', 'string', 'unique:concessionaria', 'formato_cnpj'],
-            'email' => ['nullable', 'email', 'unique:concessionaria'],
-            'telefone' => ['nullable', 'telefone_com_ddd'],
-            'cep' => ['nullable', 'string'],
-            'cidade' => ['nullable', 'string'],
-            'estado' => ['nullable', 'string'],
-            'endereço' => ['nullable', 'string'],
-            'numero' => ['nullable', 'integer'],
-            'complemento' => ['nullable', 'string'],
+            'email' => ['required', 'email', 'unique:concessionaria'],
+            'telefone' => ['required', 'telefone_com_ddd'],
+            'cep' => ['required', 'string'],
+            'cidade' => ['required', 'string'],
+            'estado' => ['required', 'string'],
+            'endereco' => ['required', 'string'],
+            'numero' => ['required', 'integer'],
+            'complemento' => ['required', 'string']
         ];
     }
 }

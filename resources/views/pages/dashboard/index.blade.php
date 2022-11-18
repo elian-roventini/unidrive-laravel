@@ -20,15 +20,24 @@
                 <p class="text-orange font-bold">E-mail:</p>
                 <p class="">{{ $usuario->email ?? 'Não Cadastrado' }}</p>
 
+                <p class="text-orange font-bold">Telefone:</p>
+                <p class="">{{ $usuario->telefone ?? 'Não Cadastrado' }}</p>
+
+                <p class="text-orange font-bold">CPF:</p>
+                <p class="">{{ $usuario->cpf ?? 'Não Cadastrado' }}</p>
+
+                <p class="text-orange font-bold">CNH:</p>
+                <p class="">{{ $usuario->cnh ?? 'Não Cadastrado' }}</p>
+
                 <p class="text-orange font-bold">Endereço:</p>
-                <p class="">{{ $usuario->endereco ?? 'Não Cadastrado' }}</p>
+                <p class="">{{ $usuario->endereco->endereco ?? 'Não Cadastrado' }}</p>
 
                 <p class="text-orange font-bold">Complemento:</p>
-                <p class="">{{ $usuario->complemento ?? 'Não Cadastrado' }}</p>
+                <p class="">{{ $usuario->endereco->complemento ?? 'Não Cadastrado' }}</p>
             </div>
 
-            @if($concessionaria)
-                @include('pages.car.create')
+            @if($usuario->concessionaria)
+                @include('pages.car.create', [ 'concessionaria' => $usuario->concessionaria->nomeFantasia ])
             @else
                 <div class="grid md:w-1/2 bg-blue-dark text-white p-4 rounded-lg">
                     <x-button href="{{ route('dealership.create') }}" class="w-fit h-16 mx-auto self-center">Cadastrar Concessionária</x-button>
@@ -60,6 +69,8 @@
                                 <th>Telefone</th>
                                 <th>E-mail</th>
                                 <th>Data</th>
+                                <th>Hora Inicial</th>
+                                <th>Hora Final</th>
                                 <th>Carro solicitado</th>
                             </tr>
                         </thead>
@@ -70,6 +81,8 @@
                                     <td>{{ $usuario->telefone ?? 'Não Cadastrado' }}</td>
                                     <td>{{ $usuario->email ?? 'Não Cadastrado' }}</td>
                                     <td>{{ \Carbon\Carbon::create($agendamento->dt_agendamento)->format('d/m/Y') ?? 'Não Cadastrado' }}</td>
+                                    <td>{{ \Carbon\Carbon::create($agendamento->hr_inicial)->format('H:i') ?? 'Não Cadastrado' }}</td>
+                                    <td>{{ \Carbon\Carbon::create($agendamento->hr_final)->format('H:i') ?? 'Não Cadastrado' }}</td>
                                     <td>{{ ($agendamento->carro->marca . ' ' . $agendamento->carro->modelo) ?? 'Não Cadastrado' }}</td>
                                 </tr>
                             @endforeach
