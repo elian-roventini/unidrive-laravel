@@ -29,7 +29,7 @@ class UserPostRequest extends FormRequest
             'telefone' => ['required', 'celular_com_ddd', 'unique:usuario'],
             'endereco' => ['required', 'string'],
             'numero' => ['required', 'integer'],
-            'complemento' => ['required', 'string'],
+            'complemento' => ['nullable', 'string'],
             'cep' => ['required', 'formato_cep'],
         ];
     }

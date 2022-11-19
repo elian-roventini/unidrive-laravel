@@ -16,11 +16,6 @@
             <x-nav.link :href="route('about.index')" :active="request()->routeIs('about.index')">
                 {{ __('Sobre Nós') }}
             </x-nav.link>
-            @auth
-                <x-nav.link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
-                    {{ __('Painel') }}
-                </x-nav.link>
-            @endauth
         </div>
 
         @guest
@@ -47,6 +42,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                            {{ __('Painel') }}
+                        </x-dropdown-link>
                         <form method="POST" action="{{ route('auth.logout') }}">
                             @csrf
 
@@ -96,11 +94,6 @@
             <x-nav.responsive-link :href="route('about.index')" :active="request()->routeIs('about.index')">
                 {{ __('Sobre Nós') }}
             </x-nav.responsive-link>
-            @auth
-                <x-nav.responsive-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
-                    {{ __('Painel') }}
-                </x-nav.responsive-link>
-            @endauth
         </div>
 
         @guest
@@ -119,6 +112,9 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
+                    <x-nav.responsive-link :href="route('dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                        {{ __('Painel') }}
+                    </x-nav.responsive-link>
                     <form method="POST" action="{{ route('auth.logout') }}">
                         @csrf
 

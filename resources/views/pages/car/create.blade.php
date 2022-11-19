@@ -2,7 +2,7 @@
     @csrf
     <h2 class="text-md tracking-wider font-bold uppercase mb-6 col-span-6">Cadastrar Carro - {{ $concessionaria }}</h2>
 
-    <label for="marca" class="col-span-3">
+    <label for="marca" class="col-span-5 sm:col-span-6">
         Marca
         <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="marca">
         <option value="">Marca</option>
@@ -18,7 +18,7 @@
         <option value="bmw" @if(old('marca') === 'bmw') selected @endif>BMW</option>
     </x-form.select>
     </label>
-    <label for="modelo" class="col-span-3">
+    <label for="modelo" class="col-span-5 sm:col-span-6">
         Modelo
         <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="modelo">
             <option value="">Modelo</option>
@@ -31,7 +31,7 @@
             <option value="voyage" @if(old('modelo') === 'voyage') selected @endif>Voyage</option>
         </x-form.select>
     </label>
-    <label for="ano" class="col-span-3">
+    <label for="ano" class="col-span-5 sm:col-span-6">
         Ano
         <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="ano">
             <option value="">Ano</option>
@@ -51,7 +51,7 @@
             <option value="2010" @if(old('ano') === '2010') selected @endif>2010</option>
         </x-form.select>
     </label>
-    <label for="cor" class="col-span-3">
+    <label for="cor" class="col-span-5 sm:col-span-6">
         Cor
         <x-form.select x-col="col-span-6 sm:col-span-3" class="mt-3" name="cor">
         <option value="">Cor</option>
@@ -65,11 +65,11 @@
     </x-form.select>
     </label>
 
-    <x-form.input id="documentacao" x-col="col-span-6" name="documentacao" placeholder="Documentação">Documentação</x-form.input>
-    <x-form.input id="placa" x-col="col-span-2" name="placa" placeholder="Placa">Placa</x-form.input>
-    <x-form.input id="quilometragem" x-col="col-span-2" name="quilometragem" placeholder="Quilometragem">Quilometragem</x-form.input>
-    <x-form.input id="renavam" x-col="col-span-2" name="renavam" placeholder="Renavam">Renavam</x-form.input>
-    <x-form.input id="valor" x-col="col-span-6" name="valor" placeholder="Valor R$">Valor</x-form.input>
+    <x-form.input id="documentacao" x-col="col-span-5 sm:col-span-6" name="documentacao" placeholder="Documentação">Número do CRV</x-form.input>
+    <x-form.input id="placa" x-col="col-span-5 sm:col-span-2" name="placa" placeholder="Placa">Placa</x-form.input>
+    <x-form.input id="quilometragem" x-col="col-span-5 sm:col-span-2" name="quilometragem" placeholder="Quilometragem">Quilometragem</x-form.input>
+    <x-form.input id="renavam" x-col="col-span-5 sm:col-span-2" name="renavam" placeholder="Renavam">Renavam</x-form.input>
+    <x-form.input id="valor" x-col="col-span-5 sm:col-span-6" name="valor" placeholder="Valor R$">Valor</x-form.input>
 
     <div class="col-span-6 inline-flex justify-end mt-3">
         <x-button type="button">Cadastrar</x-button>
@@ -82,6 +82,7 @@
             $('#placa').mask('SSS0S00');
             $('#renavam').mask('00000000000', { reverse: true });
             $('#valor').mask('000.000.000.000.000,00', { reverse: true });
+            $('#documentacao').mask('000000000000', { reverse: true });
         })
     </script>
 @endpush

@@ -45,20 +45,23 @@
             </div>
 
             <div class="w-fit md:ml-4">
-                <form class="flex flex-col border-1 md:px-8 border-1 gap-4" action="{{ route('schedule.store') }}" method="POST">
-                    @csrf
+                @auth()
+                    @if($carro->concessionaria->id !== auth()->user()->concessionaria_id)
+                        <form class="flex flex-col border-1 md:px-8 border-1 gap-4" action="{{ route('schedule.store') }}" method="POST">
+                        @csrf
 
-                    <x-form.input x-col="col-span-6" name="date" type="date">Data</x-form.input>
-                    <x-form.input x-col="col-span-6" name="initial_time" type="time">Hora Inicial</x-form.input>
-                    <x-form.input x-col="col-span-6" name="final_time" type="time">Hora Final</x-form.input>
+                        <x-form.input x-col="col-span-6" name="date" type="date">Data</x-form.input>
+                        <x-form.input x-col="col-span-6" name="initial_time" type="time">Hora Inicial</x-form.input>
+                        <x-form.input x-col="col-span-6" name="final_time" type="time">Hora Final</x-form.input>
 
-                    <input type="hidden" name="carro" value="{{ $carro->modelo }}">
+                        <input type="hidden" name="carro" value="{{ $carro->modelo }}">
 
-                    <div class="inline-flex justify-end">
-                        <x-button type="button">Agendar Test Drive</x-button>
-                    </div>
-                </form>
-
+                        <div class="inline-flex justify-end">
+                            <x-button type="button">Agendar Test Drive</x-button>
+                        </div>
+                    </form>
+                    @endif
+                @endauth
                 <div class="mt-8">
                     <h2 class="text-black text-xl p-4 uppercase">Veículos relacionados</h2>
 

@@ -27,7 +27,7 @@ class CarPostRequest extends FormRequest
         return [
             'ano' => ['required', new CarYearRule()],
             'cor' => ['required', 'string'],
-            'documentacao' => ['required', 'unique:carro', 'string'],
+            'documentacao' => ['required', 'unique:carro', 'max:12','string'],
             'marca' => ['required', 'string'],
             'modelo' => ['required', 'string'],
             // Regex: '/[A-Z]{3}[0-9][0-9A-Z][0-9]{2}/' Ex: 'AAA0A00'
