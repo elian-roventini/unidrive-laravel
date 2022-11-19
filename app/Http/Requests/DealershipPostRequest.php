@@ -33,7 +33,7 @@ class DealershipPostRequest extends FormRequest
             'estado' => ['required', 'string'],
             'endereco' => ['required', 'string'],
             'numero' => ['required', 'integer'],
-            'complemento' => ['required', 'string']
+            'complemento' => ['nullable', 'string']
         ];
     }
 }

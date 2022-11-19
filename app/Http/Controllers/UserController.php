@@ -33,7 +33,7 @@ class UserController extends Controller
                 ->withInput($request->safe()->except(['password']));
         }
 
-        return back()->with([
+        return response()->redirectToRoute('auth.login')->with([
             'success' => 'Usuário cadastrado!'
         ]);
     }

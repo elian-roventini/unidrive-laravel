@@ -5,7 +5,7 @@
 @section('content')
     <div class="bg-white text-black p-8 mx-auto">
 
-        <x-message.success  x-to="/login" />
+        <x-message.success />
         <x-message.error />
 
         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">

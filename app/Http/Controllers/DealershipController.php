@@ -51,8 +51,8 @@ class DealershipController extends Controller
                 ->withInput($request->validated());
         }
 
-        return back()->with([
-            'success' => 'Concessionária cadastrado!'
+        return response()->redirectToRoute('dashboard.index')->with([
+            'success' => 'Concessionária cadastrada!'
         ]);
     }
 }
