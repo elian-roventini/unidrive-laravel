@@ -81,8 +81,9 @@
         $(document).ready(function() {
             $('#placa').mask('SSS0S00');
             $('#renavam').mask('00000000000', { reverse: true });
-            $('#valor').mask('000.000.000.000.000,00', { reverse: true });
+            $('#valor').mask('0.000.000,00', { reverse: true });
             $('#documentacao').mask('000000000000', { reverse: true });
+            $('#quilometragem').mask('0000000', { reverse: true });
         })
     </script>
 @endpush

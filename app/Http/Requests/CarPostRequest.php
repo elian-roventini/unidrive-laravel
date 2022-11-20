@@ -36,7 +36,7 @@ class CarPostRequest extends FormRequest
             // Regex(com pontuação) '(\d{4})[.](\d{6})-(\d{1})' Ex 1234.123456-1
             // Regex(sem pontuação) '(\d{4})(\d{6})(\d{1})' Ex 12341234561
             'renavam' => ['required', 'unique:carro', 'string', 'regex:/(\d{4})(\d{6})(\d{1})/i'],
-            'valor' => ['required', 'min:0'],
+            'valor' => ['required', 'min:0', 'max:1000000'],
         ];
     }
 }
