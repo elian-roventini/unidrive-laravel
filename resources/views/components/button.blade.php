@@ -12,11 +12,17 @@
 @endphp
 
 @if($type === "button")
-    <button {{ $attributes->class($class) }}>
+    <button {{ $attributes->merge([
+        'class' => implode(' ', $class)
+    ]) }}>
         {{ $slot }}
     </button>
 @else
-    <a {{ $attributes->class($class) }}>
+    <a
+        {{ $attributes->merge([
+            'class' => implode(' ', $class)
+        ]) }}
+    >
         {{ $slot }}
     </a>
 @endif
