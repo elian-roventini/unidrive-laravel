@@ -11,7 +11,8 @@ class DashboardController extends Controller
         $getUsuarioResponse = Http::unidrive(true)->get('/usuario');
         $getCarrosResponse = Http::unidrive(true)->get('/carro');
         $getConcessionariaResponse = Http::unidrive(true)->get('/concessionaria');
-        $getAgendamentosResponse = Http::unidrive(true)->get('/agendamento/concessionaria');
+        $getAgendamentosConcessionariaResponse = Http::unidrive(true)->get('/agendamento/concessionaria');
+        $getAgendamentosUsuarioResponse = Http::unidrive(true)->get('/agendamento/usuario');
 
         if ($getUsuarioResponse->failed()) {
             return response()->redirectToRoute('home.index')->with([
@@ -22,7 +23,8 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', [
             'usuario' => json_decode($getUsuarioResponse->body()),
             'concessionaria' => json_decode($getConcessionariaResponse->body()),
-            'agendamentos' => json_decode($getAgendamentosResponse->body()),
+            'agendamentosConcessionaria' => json_decode($getAgendamentosConcessionariaResponse->body()),
+            'agendamentosUsuario' => json_decode($getAgendamentosUsuarioResponse->body()),
             'carros' => json_decode($getCarrosResponse->body()),
         ]);
     }
