@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class ScheduleController extends Controller
 {
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): Response
     {
         $request->validate([
             'date' => ['required', 'date', 'after:today'],
@@ -23,13 +23,14 @@ class ScheduleController extends Controller
             'final_time.after' => 'O horário final deve ser maior que o horário inicial.',
         ]);
 
-        $getCarroResponse = Http::unidrive(true)->get("/carro/$request->carro");
+        $getCarroResponse = Http::unidrive(true)->get('/carro/' . $request->get('carro'));
         $carro = json_decode($getCarroResponse->body());
 
         if ($getCarroResponse->failed()) {
             return back()
                 ->with([
-                    'error' => 'Erro ao buscar os carros!'
+                    'error' => 'Erro ao buscar os carros!',
+                    'error-description' => $getCarroResponse->body()
                 ]);
         }
 
@@ -49,13 +50,28 @@ class ScheduleController extends Controller
                     'error' => 'Agendamento não pode ser realizado!',
                     'error-description' => $postScheduleResponse->body()
                 ])
-                ->withInput([
-                    'date' => $request->date
-                ]);
+                ->withInput($request->only(['date', 'initial_time', 'final_time']));
         }
 
         return back()->with([
             'success' => 'Agendamento cadastrado!'
+        ]);
+    }
+
+    public function delete(int $agendamentoId): Response
+    {
+        $deleteAgendamentoResponse = Http::unidrive(true)->delete("/agendamento/deletar/$agendamentoId");
+
+        if ($deleteAgendamentoResponse->failed()) {
+            return back()
+                ->with([
+                    'error' => 'Agendamento não pode ser apagado!',
+                    'error-description' => $deleteAgendamentoResponse->body()
+                ]);
+        }
+
+        return back()->with([
+            'success' => 'Agendamento deletado!'
         ]);
     }
 }

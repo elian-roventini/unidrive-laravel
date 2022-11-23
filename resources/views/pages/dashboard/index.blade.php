@@ -52,33 +52,8 @@
 
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="grid w-full bg-blue-dark text-white p-4 rounded-lg gap-4 overflow-x-auto">
-                    @if($agendamentos)
-                        <table>
-                            <thead class="text-orange">
-                                <tr>
-                                    <th>Nome solicitante</th>
-                                    <th>Telefone</th>
-                                    <th>E-mail</th>
-                                    <th>Data</th>
-                                    <th>Hora Inicial</th>
-                                    <th>Hora Final</th>
-                                    <th>Carro solicitado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($agendamentos as $agendamento)
-                                    <tr>
-                                        <td>{{ $usuario->nome ?? 'Não Cadastrado' }}</td>
-                                        <td>{{ $usuario->telefone ?? 'Não Cadastrado' }}</td>
-                                        <td>{{ $usuario->email ?? 'Não Cadastrado' }}</td>
-                                        <td>{{ \Carbon\Carbon::create($agendamento->dt_agendamento)->format('d/m/Y') ?? 'Não Cadastrado' }}</td>
-                                        <td>{{ \Carbon\Carbon::create($agendamento->hr_inicial)->format('H:i') ?? 'Não Cadastrado' }}</td>
-                                        <td>{{ \Carbon\Carbon::create($agendamento->hr_final)->format('H:i') ?? 'Não Cadastrado' }}</td>
-                                        <td>{{ ($agendamento->carro->marca . ' ' . $agendamento->carro->modelo) ?? 'Não Cadastrado' }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    @if($agendamentosConcessionaria)
+                        @include('pages.dashboard.agendamentos', ['agendamentos' => $agendamentosConcessionaria, 'delete' => true])
                     @else
                         <h1 class="text-md text-white">Não existem agendamentos cadastrados</h1>
                     @endif
@@ -93,6 +68,18 @@
                 @foreach($carros as $carro)
                     <x-car.card :carro="$carro" />
                 @endforeach
+            </div>
+        @else
+            <h1 class="text-2xl tracking-wider font-bold uppercase mb-6">Agendamentos de TestDrive</h1>
+
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="grid w-full bg-blue-dark text-white p-4 rounded-lg gap-4 overflow-x-auto">
+                    @if($agendamentosUsuario)
+                        @include('pages.dashboard.agendamentos', ['agendamentos' => $agendamentosUsuario])
+                    @else
+                        <h1 class="text-md text-white">Não existem agendamentos cadastrados</h1>
+                    @endif
+                </div>
             </div>
         @endif
     </div>
