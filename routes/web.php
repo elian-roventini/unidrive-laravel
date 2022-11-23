@@ -25,6 +25,7 @@ Route::prefix('/carro/')->name('car.')->group(function () {
 
 Route::prefix('/agendamento/')->name('schedule.')->group(function () {
     Route::post('', [ScheduleController::class, 'store'])->name('store');
+    Route::delete('{agendamentoId}', [ScheduleController::class, 'delete'])->name('delete');
 });
 
 Route::prefix('/painel/')->name('dashboard.')->middleware('auth')->group(function () {
