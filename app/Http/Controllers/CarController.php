@@ -13,7 +13,7 @@ class CarController extends Controller
     {
         $getCarrosResponse = Http::unidrive()->get('/carro');
 
-        $carros = json_decode($getCarrosResponse->body());
+        $carros = collect(json_decode($getCarrosResponse->body()));
 
         if ($getCarrosResponse->failed()) {
             return back()
@@ -22,21 +22,21 @@ class CarController extends Controller
                 ]);
         }
 
-        if ($request->filled(['marca', 'modelo'])) {
-            $carros = array_filter($carros, static function ($carro) use ($request) {
-                return
-                    $carro->marca === strtoupper($request->get('marca')) ||
-                    $carro->modelo === strtoupper($request->get('modelo'));
-            });
-
-            session()->flashInput([
-                'marca' => $request->get('marca'),
-                'modelo' => $request->get('modelo'),
-            ]);
+        if ($request->filled(['marca'])) {
+            $carros = $carros->filter(fn ($carro) => $carro->marca === strtoupper($request->get('marca')));
         }
 
+        if ($request->filled(['modelo'])) {
+            $carros = $carros->filter(fn ($carro) => $carro->modelo === strtoupper($request->get('modelo')));
+        }
+
+        session()->flashInput([
+            'marca' => $request->get('marca'),
+            'modelo' => $request->get('modelo'),
+        ]);
+
         return response()->view('pages.car.index', [
-            'carros' => $this->paginate($carros, $request->get('offset') ?? 0, $request->get('limit') ?? 10)
+            'carros' => $this->paginate($carros->toArray(), $request->get('offset') ?? 0, $request->get('limit') ?? 10)
         ]);
     }
 
