@@ -21,6 +21,7 @@ Route::prefix('/carro/')->name('car.')->group(function () {
     Route::get('', [CarController::class, 'index'])->name('index');
     Route::post('', [CarController::class, 'store'])->name('store')->middleware('auth');
     Route::get('{modelo}', [CarController::class, 'show'])->name('show');
+    Route::delete('{carroId}', [CarController::class, 'delete'])->name('delete');
 });
 
 Route::prefix('/agendamento/')->name('schedule.')->group(function () {

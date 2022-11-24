@@ -23,7 +23,7 @@ class CarController extends Controller
         return view('pages.car.index', compact('carros'));
     }
 
-    public function show($modelo)
+    public function show($modelo): Response
     {
         $getCarrosResponse = Http::unidrive()->get('/carro');
         $getCarroResponse = Http::unidrive(true)->get("/carro/$modelo");
@@ -31,7 +31,7 @@ class CarController extends Controller
         $carro = json_decode($getCarroResponse->body());
         $carros = json_decode($getCarrosResponse->body());
 
-        $carrosFiltered = array_filter($carros, function ($carroAtual) use ($carro) {
+        $carrosFiltered = array_filter($carros, static function ($carroAtual) use ($carro) {
             return $carroAtual->id !== $carro[0]->id;
         });
 
@@ -50,25 +50,25 @@ class CarController extends Controller
                 ]);
         }
 
-        return view('pages.car.show', [
+        return response()->view('pages.car.show', [
             'carro' => $carro[0] ?? [],
             'carros' => $carrosFiltered
         ]);
     }
 
-    public function store(CarPostRequest $request)
+    public function store(CarPostRequest $request): Response
     {
         $postCarroResponse = Http::unidrive(true)->post('/carro', [
             [
-                'ano' => $request->ano,
-                'cor' => $request->cor,
-                'documentacao' => $request->documentacao,
-                'marca' => $request->marca,
-                'modelo' => $request->modelo,
-                'placa' => strtoupper($request->placa),
-                'quilometragem' => $request->quilometragem,
-                'renavam' => $request->renavam,
-                'valor' => $request->valor,
+                'ano' => $request->get('ano'),
+                'cor' => $request->get('cor'),
+                'documentacao' => $request->get('documentacao'),
+                'marca' => $request->get('marca'),
+                'modelo' => $request->get('modelo'),
+                'placa' => strtoupper($request->get('placa')),
+                'quilometragem' => $request->get('quilometragem'),
+                'renavam' => $request->get('renavam'),
+                'valor' => $request->get('valor'),
             ]
         ]);
 
@@ -84,5 +84,26 @@ class CarController extends Controller
         return back()->with([
             'success' => 'Carro cadastrado!'
         ]);
+    }
+
+    public function delete(int $carroId): Response
+    {
+        $deleteCarroResponse = Http::unidrive(true)->delete("/carro/$carroId");
+
+        if ($deleteCarroResponse->failed()) {
+            return response()
+                ->json(
+                    [
+                        'error' => 'Carro não pode ser apagado!',
+                        'error-description' => $deleteCarroResponse->body()
+                    ],
+                    Response::HTTP_BAD_REQUEST
+                );
+        }
+
+        return response()
+            ->json([
+                'success' => 'Carro deletado!'
+            ]);
     }
 }
