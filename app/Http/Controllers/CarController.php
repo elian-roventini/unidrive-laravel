@@ -25,7 +25,7 @@ class CarController extends Controller
         if ($request->filled(['marca', 'modelo'])) {
             $carros = array_filter($carros, static function ($carro) use ($request) {
                 return
-                    $carro->marca === strtoupper($request->get('marca')) &&
+                    $carro->marca === strtoupper($request->get('marca')) ||
                     $carro->modelo === strtoupper($request->get('modelo'));
             });
 
