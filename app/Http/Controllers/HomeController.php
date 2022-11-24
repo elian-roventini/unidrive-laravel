@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         $carrosGetResponse = Http::unidrive()->get('/carro');
 
@@ -15,8 +16,8 @@ class HomeController extends Controller
             $carros = json_decode($carrosGetResponse->body());
         }
 
-        return view('pages.home.index', [
-            'carros' => $carros ?? []
+        return response()->view('pages.home.index', [
+            'carros' => $this->paginate($carros ?? [])
         ]);
     }
 }

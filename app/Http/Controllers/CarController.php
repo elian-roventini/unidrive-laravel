@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarPostRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class CarController extends Controller
 {
-    public function index()
+    public function index(Request $request): Response
     {
         $getCarrosResponse = Http::unidrive()->get('/carro');
 
@@ -20,7 +22,22 @@ class CarController extends Controller
                 ]);
         }
 
-        return view('pages.car.index', compact('carros'));
+        if ($request->filled(['marca', 'modelo'])) {
+            $carros = array_filter($carros, static function ($carro) use ($request) {
+                return
+                    $carro->marca === strtoupper($request->get('marca')) &&
+                    $carro->modelo === strtoupper($request->get('modelo'));
+            });
+
+            session()->flashInput([
+                'marca' => $request->get('marca'),
+                'modelo' => $request->get('modelo'),
+            ]);
+        }
+
+        return response()->view('pages.car.index', [
+            'carros' => $this->paginate($carros, $request->get('offset') ?? 0, $request->get('limit') ?? 10)
+        ]);
     }
 
     public function show($modelo): Response
@@ -52,7 +69,7 @@ class CarController extends Controller
 
         return response()->view('pages.car.show', [
             'carro' => $carro[0] ?? [],
-            'carros' => $carrosFiltered
+            'carros' => $this->paginate($carrosFiltered, 0, 3)
         ]);
     }
 

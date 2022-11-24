@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         $getUsuarioResponse = Http::unidrive(true)->get('/usuario');
         $getCarrosResponse = Http::unidrive(true)->get('/carro');
@@ -20,12 +21,12 @@ class DashboardController extends Controller
             ]);
         }
 
-        return view('pages.dashboard.index', [
+        return response()->view('pages.dashboard.index', [
             'usuario' => json_decode($getUsuarioResponse->body()),
             'concessionaria' => json_decode($getConcessionariaResponse->body()),
             'agendamentosConcessionaria' => json_decode($getAgendamentosConcessionariaResponse->body()),
             'agendamentosUsuario' => json_decode($getAgendamentosUsuarioResponse->body()),
-            'carros' => json_decode($getCarrosResponse->body()),
+            'carros' => $this->paginate(json_decode($getCarrosResponse->body())),
         ]);
     }
 }
