@@ -40,19 +40,14 @@ class CarController extends Controller
         ]);
     }
 
-    public function show($modelo): Response
+    public function show($id): Response
     {
         $getCarrosResponse = Http::unidrive()->get('/carro');
-        $getCarroResponse = Http::unidrive(true)->get("/carro/$modelo");
 
-        $carro = json_decode($getCarroResponse->body());
-        $carros = json_decode($getCarrosResponse->body());
+        $carros = collect(json_decode($getCarrosResponse->body()));
+        $carro = collect($carros)->filter(fn($carro) => $carro->id === (int) $id)->first();
 
-        $carrosFiltered = array_filter($carros, static function ($carroAtual) use ($carro) {
-            return $carroAtual->id !== $carro[0]->id;
-        });
-
-        if ($getCarrosResponse->failed() || $getCarroResponse->failed()) {
+        if ($getCarrosResponse->failed()) {
             return back()
                 ->with([
                     'error' => 'Erro ao buscar os carros!'
@@ -63,13 +58,17 @@ class CarController extends Controller
             return response()
                 ->redirectToRoute('car.index')
                 ->with([
-                    'error' => "Não foi possivel localizar o carro $modelo!"
+                    'error' => "Não foi possivel localizar o carro!"
                 ]);
         }
 
         return response()->view('pages.car.show', [
-            'carro' => $carro[0] ?? [],
-            'carros' => $this->paginate($carrosFiltered, 0, 3)
+            'carro' => $carro,
+            'carros' => $this->paginate(
+                $carros->filter(fn ($carroAtual) => $carroAtual->id !== $carro->id)->toArray(),
+                0,
+                3
+            )
         ]);
     }
 
@@ -103,9 +102,9 @@ class CarController extends Controller
         ]);
     }
 
-    public function delete(int $carroId): Response
+    public function delete(int $id): Response
     {
-        $deleteCarroResponse = Http::unidrive(true)->delete("/carro/$carroId");
+        $deleteCarroResponse = Http::unidrive(true)->delete("/carro/$id");
 
         if ($deleteCarroResponse->failed()) {
             return response()

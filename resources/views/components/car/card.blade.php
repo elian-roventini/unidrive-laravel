@@ -8,7 +8,7 @@
             @if(request()->routeIs('dashboard.index'))
                 <button class="absolute top-0 right-0 bg-red-500 text-white px-2 rounded hover:bg-red-800 m-2" x-data @click="deleteCar({{ $carro->id ?? null }})">x</button>
             @endif
-            <a href="{{ route('car.show', $carro->modelo) ?? '' }}">
+            <a href="{{ route('car.show', $carro->id) ?? '' }}">
                 <img class="rounded-t-lg" src="{{ $carro->imagem ?? 'https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=876&h=484&crop=1' }}" alt="Foto do carro"/>
             </a>
        </div>

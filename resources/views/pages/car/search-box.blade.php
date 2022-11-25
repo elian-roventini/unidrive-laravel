@@ -1,8 +1,6 @@
 <section id="search-box" class="bg-white border-x-4 border-y-8 border-y-blue-dark rounded-md md:w-96 h-auto md:h-max float-left mb-8">
     <div class="p-4 lg:col-span-2 text-black">
         <form method="GET" action="{{ route('car.index') }}" class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6">
-            @csrf
-
             <x-form.select x-col="md:col-span-6 lg:col-span-3" class="mt-3" name="marca" placeholder="Marca">
                 <option value="">Marca</option>
                 <option value="toyota" @if(old('marca') === 'toyota') selected @endif>Toyota</option>
