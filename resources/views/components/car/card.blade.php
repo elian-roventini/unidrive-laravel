@@ -69,6 +69,8 @@
                                 'Carro deletado.',
                                 'success'
                             )
+
+                            window.location.reload();
                         } else {
                             Swal.fire(
                                 'Erro!',
