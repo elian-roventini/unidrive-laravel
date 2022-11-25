@@ -23,7 +23,7 @@ class ScheduleController extends Controller
             'final_time.after' => 'O horário final deve ser maior que o horário inicial.',
         ]);
 
-        $getCarroResponse = Http::unidrive(true)->get('/carro/' . $request->get('carro'));
+        $getCarroResponse = Http::unidrive(true)->get('/carro/' . $request->get('id'));
         $carro = json_decode($getCarroResponse->body());
 
         if ($getCarroResponse->failed()) {
@@ -34,16 +34,23 @@ class ScheduleController extends Controller
                 ]);
         }
 
-        // @todo atualizar minutos
-        $initialTime = explode(':', $request->initial_time ?? '00:00');
-        $finalTime = explode(':', $request->final_time ?? '00:01');
-        $postScheduleResponse = Http::unidrive(true)->post('/agendamento', [
-                'carro' => $carro[0],
-                'dt_agendamento' => Carbon::create($request->date)->format('Y-m-d\TH:m:s.u'),
-                'hr_inicial' => Carbon::create($request->date)->addHours($initialTime[0])->addMinutes($initialTime[1])->format('Y-m-d\TH:m:s.u'),
-                'hr_final' => Carbon::create($request->date)->addHours($finalTime[0])->addMinutes($finalTime[1])->format('Y-m-d\TH:m:s.u'),
-        ]);
+        $initialTime = explode(':', $request->get('initial_time') ?? '00:00');
+        $finalTime = explode(':', $request->get('final_time') ?? '00:01');
 
+        $schedule = [
+            'carro' => $carro[0],
+            'dt_agendamento' => Carbon::create($request->get('date'))->format('Y-m-d\TH:m:s.u'),
+            'hr_inicial' => Carbon::create($request->get('date'))
+                ->addHours($initialTime[0])
+                ->addMinutes($initialTime[1])
+                ->format('Y-m-d\TH:m:s.u'),
+            'hr_final' => Carbon::create($request->get('date'))
+                ->addHours($finalTime[0])
+                ->addMinutes($finalTime[1])
+                ->format('Y-m-d\TH:m:s.u'),
+        ];
+
+        $postScheduleResponse = Http::unidrive(true)->post('/agendamento', $schedule);
         if ($postScheduleResponse->failed()) {
             return back()
                 ->with([

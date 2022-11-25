@@ -54,7 +54,7 @@
                         <x-form.input x-col="col-span-6" name="initial_time" type="time">Hora Inicial</x-form.input>
                         <x-form.input x-col="col-span-6" name="final_time" type="time">Hora Final</x-form.input>
 
-                        <input type="hidden" name="carro" value="{{ $carro->modelo }}">
+                        <input type="hidden" name="carro" value="{{ $carro->id }}">
 
                         <div class="inline-flex justify-end">
                             <x-button type="button">Agendar Test Drive</x-button>
