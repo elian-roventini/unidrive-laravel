@@ -4,38 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginPostRequest;
 use App\Models\User;
+use App\Services\Unidrive\AuthService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function login(LoginPostRequest $request)
+    public function __construct(
+        public AuthService $authService
+    )
     {
-        $postAuthResponse = Http::unidrive()->post('/auth', [
-            'email' => $request->email,
-            'senha' => $request->senha
-        ]);
+    }
 
-        if ($postAuthResponse->failed()) {
-            return back()->with([
-                'error' => 'Não foi possivel logar! Verifique as credenciais!'
-            ]);
+    public function login(LoginPostRequest $request): Response
+    {
+        $token = $this->authService->login(
+            $request->get('email'),
+            $request->get('senha')
+        );
+
+        if ($token === null) {
+            return back()
+                ->with('error', 'Não foi possivel logar! Verifique as credenciais!')
+                ->withInput($request->safe()->except(['password']));
         }
 
-        $token = json_decode($postAuthResponse->body());
-        session(['token' => "$token->tipo $token->token"]);
+        $user = (new User())->where('email', $request->get('email'))->first();
+        $logged = Auth::loginUsingId($user->id);
 
-        $user = (new User())->whereEmail($request->email)->first();
-
-        if (!$user) {
-            return back()->with($request);
+        if (!$logged) {
+            return back()
+                ->with('error', 'Não foi possivel logar!!')
+                ->withInput($request->safe()->except(['password']));
         }
 
-        Auth::login($user);
         return redirect()->route('dashboard.index');
     }
 
-    public function logout()
+    public function logout(): Response
     {
         Auth::logout();
 

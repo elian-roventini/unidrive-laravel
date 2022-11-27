@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
+use App\Services\Unidrive\CarService;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller
 {
-    public function index(): Response
+    public function index(CarService $carService): Response
     {
-        $carrosGetResponse = Http::unidrive()->get('/carro');
-
-        if ($carrosGetResponse->ok()) {
-            $carros = json_decode($carrosGetResponse->body());
-        }
-
         return response()->view('pages.home.index', [
-            'carros' => $this->paginate($carros ?? [])
+            'carros' => collect($carService->getCars())
+                            ->slice(0, 10)
+                            ->toArray()
         ]);
     }
 }

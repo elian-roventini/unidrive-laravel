@@ -3,31 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CarPostRequest;
+use App\Services\Unidrive\CarService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
 class CarController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(CarService $carService, Request $request): Response
     {
-        $getCarrosResponse = Http::unidrive()->get('/carro');
+        $cars = collect($carService->getCars());
 
-        $carros = collect(json_decode($getCarrosResponse->body()));
-
-        if ($getCarrosResponse->failed()) {
+        if ($cars === null) {
             return back()
-                ->with([
-                    'error' => 'Erro ao buscar os carros!'
-                ]);
+                ->with('error', 'Erro ao buscar os carros!');
         }
 
         if ($request->filled(['marca'])) {
-            $carros = $carros->filter(fn ($carro) => $carro->marca === strtoupper($request->get('marca')));
+            $cars = $cars->filter(static fn ($carro) => $carro->marca === strtoupper($request->get('marca')));
         }
 
         if ($request->filled(['modelo'])) {
-            $carros = $carros->filter(fn ($carro) => $carro->modelo === strtoupper($request->get('modelo')));
+            $cars = $cars->filter(static fn ($carro) => $carro->modelo === strtoupper($request->get('modelo')));
         }
 
         session()->flashInput([
@@ -36,64 +32,44 @@ class CarController extends Controller
         ]);
 
         return response()->view('pages.car.index', [
-            'carros' => $this->paginate($carros->toArray(), $request->get('offset') ?? 0, $request->get('limit') ?? 10)
+            'carros' => $cars
+                            ->slice($request->get('offset') ?? 0, $request->get('limit') ?? 10)
+                            ->toArray()
         ]);
     }
 
-    public function show($id): Response
+    public function show(CarService $carService, int $id): Response
     {
-        $getCarrosResponse = Http::unidrive()->get('/carro');
+        $cars = collect($carService->getCars());
 
-        $carros = collect(json_decode($getCarrosResponse->body()));
-        $carro = collect($carros)->filter(fn($carro) => $carro->id === (int) $id)->first();
-
-        if ($getCarrosResponse->failed()) {
+        if ($cars === null) {
             return back()
-                ->with([
-                    'error' => 'Erro ao buscar os carros!'
-                ]);
+                ->with('error', 'Erro ao buscar os carros!');
         }
 
-        if ($carro === []) {
+        $car = $cars->filter(static fn($car) => $car->id === $id)->first();
+        if ($car === []) {
             return response()
                 ->redirectToRoute('car.index')
-                ->with([
-                    'error' => "Não foi possivel localizar o carro!"
-                ]);
+                ->with('error', 'Não foi possivel localizar o carro!');
         }
 
         return response()->view('pages.car.show', [
-            'carro' => $carro,
-            'carros' => $this->paginate(
-                $carros->filter(fn ($carroAtual) => $carroAtual->id !== $carro->id)->toArray(),
-                0,
-                3
-            )
+            'carro' => $car,
+            'carros' => $cars
+                            ->reject(static fn ($carroAtual) => $carroAtual->id === $car->id)
+                            ->slice(0,3)
+                            ->toArray()
         ]);
     }
 
-    public function store(CarPostRequest $request): Response
+    public function store(CarService $carService, CarPostRequest $request): Response
     {
-        $postCarroResponse = Http::unidrive(true)->post('/carro', [
-            [
-                'ano' => $request->get('ano'),
-                'cor' => $request->get('cor'),
-                'documentacao' => $request->get('documentacao'),
-                'marca' => $request->get('marca'),
-                'modelo' => $request->get('modelo'),
-                'placa' => strtoupper($request->get('placa')),
-                'quilometragem' => $request->get('quilometragem'),
-                'renavam' => $request->get('renavam'),
-                'valor' => $request->get('valor'),
-            ]
-        ]);
+        $carCreated = $carService->register($request->validated());
 
-        if ($postCarroResponse->failed()) {
+        if (!$carCreated) {
             return back()
-                ->with([
-                    'error' => 'Carro não pode ser cadastrado!',
-                    'error-description' => $postCarroResponse->body()
-                ])
+                ->with('error', 'Carro não pode ser cadastrado!')
                 ->withInput($request->validated());
         }
 
@@ -102,24 +78,16 @@ class CarController extends Controller
         ]);
     }
 
-    public function delete(int $id): Response
+    public function delete(CarService $carService, int $id): Response
     {
-        $deleteCarroResponse = Http::unidrive(true)->delete("/carro/$id");
+        $carDeleted = $carService->delete($id);
 
-        if ($deleteCarroResponse->failed()) {
+        if (!$carDeleted) {
             return response()
-                ->json(
-                    [
-                        'error' => 'Carro não pode ser apagado!',
-                        'error-description' => $deleteCarroResponse->body()
-                    ],
-                    Response::HTTP_BAD_REQUEST
-                );
+                ->json([ 'error' => 'Carro não pode ser apagado!' ],Response::HTTP_BAD_REQUEST);
         }
 
         return response()
-            ->json([
-                'success' => 'Carro deletado!'
-            ]);
+            ->json([ 'success' => 'Carro deletado!' ]);
     }
 }

@@ -3,56 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DealershipPostRequest;
+use App\Services\Unidrive\DealershipService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\Response;
 
 class DealershipController extends Controller
 {
-    public function create()
+    public function __construct(
+        public DealershipService $dealershipService
+    )
+    {
+    }
+
+    public function create(): Response
     {
         if (auth()->user()->concessionaria_id !== null) {
-            return back()->with([
-                'error' => 'Concessionária já cadastrada!'
-            ]);
+            return back()
+                    ->with('error', 'Concessionária já cadastrada!');
         }
 
-        return view('pages.dealership.create');
+        return response()->view('pages.dealership.create');
     }
 
     public function store(DealershipPostRequest $request): RedirectResponse
     {
         if(!$request->has('terms-and-conditions')) {
             return back()
-                ->with([
-                    'error' => 'Você deve aceitar os termos e condições!'
-                ])
-                ->withInput($request->validated());
+                    ->with('error', 'Você deve aceitar os termos e condições!')
+                    ->withInput($request->safe()->toArray());
         }
 
-        $postDealershipResponse = Http::unidrive(true)->post('/concessionaria', [
-            'cnpj' => $request->validated()['cnpj'],
-            'email' => $request->validated()['email'],
-            'enderecoForm' => [
-              'cep' => $request->validated()['cep'],
-              'complemento' => $request->validated()['complemento'],
-              'endereco' => $request->validated()['endereco'],
-              'numero' => $request->validated()['numero']
-            ],
-            'nomeFantasia' => $request->validated()['nome'],
-            'telefone' => $request->validated()['telefone']
-        ]);
+        $dealarshipCreated = $this->dealershipService->register($request->validated());
 
-        if ($postDealershipResponse->failed()) {
+        if (!$dealarshipCreated) {
             return back()
-                ->with([
-                    'error' => 'Concessionária não pode ser cadastrado!',
-                    'error-description' => $postDealershipResponse->body()
-                ])
-                ->withInput($request->validated());
+                    ->with('error', 'Concessionária não pode ser cadastrada!')
+                    ->withInput($request->safe()->toArray());
         }
 
-        return response()->redirectToRoute('dashboard.index')->with([
-            'success' => 'Concessionária cadastrada!'
-        ]);
+        return response()
+                ->redirectToRoute('dashboard.index')
+                ->with('success', 'Concessionária cadastrada!');
     }
 }

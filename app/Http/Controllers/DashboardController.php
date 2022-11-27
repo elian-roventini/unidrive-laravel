@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Http;
+use App\Services\Unidrive\CarService;
+use App\Services\Unidrive\DealershipService;
+use App\Services\Unidrive\ScheduleService;
+use App\Services\Unidrive\UserService;
 use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends Controller
 {
-    public function index(): Response
+    public function index(UserService $userService, CarService $carService, DealershipService $dealershipService, ScheduleService $scheduleService): Response
     {
-        $getUsuarioResponse = Http::unidrive(true)->get('/usuario');
-        $getCarrosResponse = Http::unidrive(true)->get('/carro');
-        $getConcessionariaResponse = Http::unidrive(true)->get('/concessionaria');
-        $getAgendamentosConcessionariaResponse = Http::unidrive(true)->get('/agendamento/concessionaria');
-        $getAgendamentosUsuarioResponse = Http::unidrive(true)->get('/agendamento/usuario');
+        $user = $userService->getUser();
+        $car = $carService->getCars();
+        $dealership = $dealershipService->getDealership();
+        $scheduleDealership = $scheduleService->getScheduleDealership();
+        $scheduleUser = $scheduleService->getScheduleUser();
 
-        if ($getUsuarioResponse->failed()) {
-            return response()->redirectToRoute('home.index')->with([
-                'error' => 'Não Autorizado'
-            ]);
+        if ($user === null) {
+            return response()
+                    ->redirectToRoute('home.index')
+                    ->with('error', 'Não Autorizado');
         }
 
         return response()->view('pages.dashboard.index', [
-            'usuario' => json_decode($getUsuarioResponse->body()),
-            'concessionaria' => json_decode($getConcessionariaResponse->body()),
-            'agendamentosConcessionaria' => json_decode($getAgendamentosConcessionariaResponse->body()),
-            'agendamentosUsuario' => json_decode($getAgendamentosUsuarioResponse->body()),
-            'carros' => $this->paginate(json_decode($getCarrosResponse->body())),
+            'usuario' => $user,
+            'concessionaria' => $dealership,
+            'agendamentosConcessionaria' => $scheduleDealership,
+            'agendamentosUsuario' => $scheduleUser,
+            'carros' => collect($car)->slice(0, 10)->toArray(),
         ]);
     }
 }

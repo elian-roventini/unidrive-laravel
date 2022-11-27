@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
@@ -23,17 +22,19 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Http::macro('unidrive', function ($withAuthorization = false) {
-            $url = env('API_URL', 'http://localhost:8080');
+            $url = config('unidrive.api_url');
 
-            return $withAuthorization
-                ? Http::baseUrl($url)->acceptJson()->asJson()
+            if ($withAuthorization) {
+                return Http::baseUrl($url)->acceptJson()->asJson()
                     ->withHeaders([
                         'Authorization' => session('token')
-                    ])
-                : Http::baseUrl($url)->acceptJson()->asJson();
+                    ]);
+            }
+
+            return Http::baseUrl($url)->acceptJson()->asJson();
         });
     }
 }
