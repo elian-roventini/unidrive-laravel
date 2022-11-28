@@ -21,7 +21,7 @@
         @yield('content')
 
         <footer class="mx-auto px-10 flex justify-center py-4">
-            <p class="text-sm">Copyright ©UniDrive Inc. {{ date("Y") }}. All right reserved.</p>
+            <p class="text-sm">{{ trans('pages.app.copyright', ['date' => date("Y")]) }}</p>
         </footer>
     </body>
 </html>

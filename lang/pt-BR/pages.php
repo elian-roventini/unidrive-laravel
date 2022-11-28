@@ -28,5 +28,8 @@ return [
     ],
     'terms_and_conditions' => [
         'title' => 'Termos'
+    ],
+    'app' => [
+        'copyright' => 'Copyright ©UniDrive Inc. :date. All right reserved.'
     ]
 ];
