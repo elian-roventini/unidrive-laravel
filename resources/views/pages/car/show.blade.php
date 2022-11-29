@@ -50,9 +50,9 @@
                         <form class="flex flex-col border-1 md:px-8 border-1 gap-4" action="{{ route('schedule.store') }}" method="POST">
                         @csrf
 
-                        <x-form.input x-col="col-span-6" name="date" type="date">Data</x-form.input>
-                        <x-form.input x-col="col-span-6" name="initial_time" type="time">Hora Inicial</x-form.input>
-                        <x-form.input x-col="col-span-6" name="final_time" type="time">Hora Final</x-form.input>
+                        <x-form.input x-col="col-span-6" name="date" type="date" min="{{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}" max="{{ \Carbon\Carbon::now()->addYear()->format('Y-m-d') }}" required>Data</x-form.input>
+                        <x-form.input x-col="col-span-6" name="initial_time" type="time" min="08:00" max="18:00" required>Hora Inicial</x-form.input>
+                        <x-form.input x-col="col-span-6" name="final_time" type="time" min="08:00" max="18:00" required>Hora Final</x-form.input>
 
                         <input type="hidden" name="carro" value="{{ $carro->id }}">
 
@@ -77,3 +77,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(function() {
+        $('input[name="date"]').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'D/M/Y HH:MM'
+            }
+        });
+    });
+</script>
+@endpush

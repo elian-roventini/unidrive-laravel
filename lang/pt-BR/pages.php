@@ -4,7 +4,7 @@ return [
     'home' => [
         'hero' => [
             'title' => 'Vamos encontrar o carro perfeito para você!',
-            'subtitle' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel sed in mauris, libero magna. Cursus urna sem odio nulla aliquam. Nascetur.',
+            'subtitle' => 'Com a UniDrive, tudo fica mais prático e fácil, escolha o carro que deseja fazer um Test-Drive, com dia e hora marcada e o melhor de tudo isso? Bem pertinho de você.',
             'button' => 'Sobre Nós'
         ],
         'dealerships' => [
@@ -19,12 +19,12 @@ return [
         ],
         'about' => [
             'title' => 'Quem somos?',
-            'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus in mattis urna bibendum elit facilisi consectetur dignissim. Nulla etiam sit vel phasellus. Et dictum at suscipit adipiscing nam tristique facilisi convallis lorem. Porta congue at pharetra sit ac euismod et est cursus. A eget pellentesque nunc donec at tempus porta. Eget nisi, cras metus, sagittis duis at nam vitae.A eget pellentesque nunc donec at tempus porta. Eget nisi, cras metus, sagittis duis at nam vitae.'
+            'message' => 'Somos uma empresa inovadora, nascidos para facilitar a vida de quem procura o carro dos sonhos, sabemos que não é uma escolha nada fácil, quando trata-se de escolher um carro, sendo assim, facilitamos a vida das pessoas na hora de escolher um carro. Com um agendamento prático e rápido de Test-Drive, conectamos Concessionárias com seus Clientes finais. Simples e eficaz, UniDrive!'
         ]
     ],
     'about_us' => [
         'title' => 'Quem somos?',
-        'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus in mattis urna bibendum elit facilisi consectetur dignissim. Nulla etiam sit vel phasellus. Et dictum at suscipit adipiscing nam tristique facilisi convallis lorem. Porta congue at pharetra sit ac euismod et est cursus. A eget pellentesque nunc donec at tempus porta. Eget nisi, cras metus, sagittis duis at nam vitae.A eget pellentesque nunc donec at tempus porta. Eget nisi, cras metus, sagittis duis at nam vitae.'
+        'message' => 'Somos uma empresa inovadora, nascidos para facilitar a vida de quem procura o carro dos sonhos, sabemos que não é uma escolha nada fácil, quando trata-se de escolher um carro, sendo assim, facilitamos a vida das pessoas na hora de escolher um carro. Com um agendamento prático e rápido de Test-Drive, conectamos Concessionárias com seus Clientes finais. Simples e eficaz, UniDrive!'
     ],
     'terms_and_conditions' => [
         'title' => 'Termos'
