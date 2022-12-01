@@ -12,7 +12,7 @@
             <p class="text-xl font-light tracking-wide">{{ __('pages.home.dealerships.subtitle') }}</p>
         </div>
 
-        <img class="mt-8" src="{{ asset('assets/images/dealerships.svg') }}" alt="lista de logo de concessionárias atendidas.">
+        <img class="mx-auto mt-8" src="{{ asset('assets/images/dealerships.svg') }}" alt="lista de logo de concessionárias atendidas.">
     </section>
     <section id="best-cars" class="mx-auto px-10 bg-white py-6">
         @include('pages.home.best-cars')

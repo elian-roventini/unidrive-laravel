@@ -1,17 +1,21 @@
 <div class="space-y-6">
 
-    <div>
-        <h2 class="text-black text-2xl uppercase tracking-wide">{{ __('pages.home.best-cars.title') }}</h2>
-        <p class="text-black text-xl font-light tracking-wide">{{ __('pages.home.best-cars.subtitle') }}</p>
+    <div class="flex flex-col">
+        <h2 class="mx-auto text-black text-2xl uppercase tracking-wide">{{ __('pages.home.best-cars.title') }}</h2>
+        <p class="mx-auto text-black text-xl font-light tracking-wide">{{ __('pages.home.best-cars.subtitle') }}</p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @forelse($carros as $carro)
-            <x-car.card :carro="$carro" />
-        @empty
-            <h1 class="text-2xl font-bold text-black">{{ __('pages.home.best-cars.not_found') }}</h1>
-        @endforelse
-    </div>
+    @if($carros)
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach($carros as $carro)
+                <x-car.card :carro="$carro"></x-car.card>
+            @endforeach
+        </div>
+    @else
+        <div class="flex flex-col">
+            <h1 class="mx-auto text-2xl font-bold text-black">{{ __('pages.home.best-cars.not_found') }}</h1>
+        </div>
+    @endif
 
     @if($carros)
         <div class="flex justify-center">
