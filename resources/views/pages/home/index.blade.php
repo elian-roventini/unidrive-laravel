@@ -7,9 +7,9 @@
         @include('pages.home.hero')
     </section>
     <section id="dealerships" class="mx-auto px-10 p-10">
-        <div class="space-y-2">
-            <h2 class="text-2xl uppercase tracking-wide">{{ __('pages.home.dealerships.title') }}</h2>
-            <p class="text-xl font-light tracking-wide">{{ __('pages.home.dealerships.subtitle') }}</p>
+        <div class="space-y-2 flex flex-col">
+            <h2 class="mx-auto text-2xl uppercase tracking-wide">{{ __('pages.home.dealerships.title') }}</h2>
+            <p class="mx-auto text-xl font-light tracking-wide">{{ __('pages.home.dealerships.subtitle') }}</p>
         </div>
 
         <img class="mx-auto mt-8" src="{{ asset('assets/images/dealerships.svg') }}" alt="lista de logo de concessionárias atendidas.">

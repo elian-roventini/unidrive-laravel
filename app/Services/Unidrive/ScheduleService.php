@@ -12,20 +12,24 @@ class ScheduleService
     {
         try {
             $carbonDate = CarbonImmutable::create($date);
-            $initialTime = explode(':', $initial_time ?? '00:00');
-            $finalTime = explode(':', $final_time ?? '00:01');
+
+            [$initialHour, $initialMinutes] = explode(':', $initial_time ?? '00:00');
+            [$finalHour, $finalMinutes] = explode(':', $final_time ?? '00:00');
+
+            $initialTime = $carbonDate
+                ->hour($initialHour)
+                ->minutes($initialMinutes)
+                ->format('Y-m-d\TH:i:s.u');
+            $finalTime = $carbonDate
+                ->hour($finalHour)
+                ->minutes($finalMinutes)
+                ->format('Y-m-d\TH:i:s.u');
 
             $postScheduleResponse = Http::unidrive(true)->post('/agendamento', [
                 'carro' => $carro,
                 'dt_agendamento' => $carbonDate->format('Y-m-d\TH:m:s.u'),
-                'hr_inicial' => $carbonDate
-                    ->addHours($initialTime[0])
-                    ->addMinutes($initialTime[1])
-                    ->format('Y-m-d\TH:m:s.u'),
-                'hr_final' => $carbonDate
-                    ->addHours($finalTime[0])
-                    ->addMinutes($finalTime[1])
-                    ->format('Y-m-d\TH:m:s.u'),
+                'hr_inicial' => $initialTime,
+                'hr_final' => $finalTime,
             ]);
 
             if ($postScheduleResponse->failed()) {
