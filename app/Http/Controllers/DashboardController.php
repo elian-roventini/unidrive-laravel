@@ -13,7 +13,7 @@ class DashboardController extends Controller
     public function index(UserService $userService, CarService $carService, DealershipService $dealershipService, ScheduleService $scheduleService): Response
     {
         $user = $userService->getUser();
-        $car = $carService->getCars();
+        $car = $carService->getCarsDealership();
         $dealership = $dealershipService->getDealership();
         $scheduleDealership = $scheduleService->getScheduleDealership();
         $scheduleUser = $scheduleService->getScheduleUser();

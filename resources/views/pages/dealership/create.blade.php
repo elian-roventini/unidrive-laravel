@@ -49,7 +49,7 @@
     <script>
         $(document).ready(function() {
             $('#cnpj').mask('00.000.000/0000-00', { reverse: true, placeholder: "__.___.___/____-__" });
-            $('#telefone').mask('(00) 0000-0000', { placeholder: "(__) ____-____" });
+            $('#telefone').mask('(00) 00000-0000', { placeholder: "(__) _____-____" });
             $('#cep').mask('00000-000', { placeholder: "_____-___" });
             $('#numero').mask('00000000000000');
         });

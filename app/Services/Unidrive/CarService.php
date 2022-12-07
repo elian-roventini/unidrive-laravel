@@ -78,4 +78,19 @@ class CarService
             return null;
         }
     }
+
+    public function getCarsDealership()
+    {
+        try {
+            $carrosGetResponse = Http::unidrive(true)->get('/concessionaria/carros');
+
+            if ($carrosGetResponse->failed()) {
+                return null;
+            }
+
+            return json_decode($carrosGetResponse->body(), false, 512, JSON_THROW_ON_ERROR);
+        } catch (Exception) {
+            return null;
+        }
+    }
 }
