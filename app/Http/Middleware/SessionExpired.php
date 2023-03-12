@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class SessionExpired
@@ -19,11 +18,15 @@ class SessionExpired
     public function handle(Request $request, Closure $next)
     {
         $isLoggedIn = $request->path() !== 'dashboard/logout';
-
         $getUserRequest = Http::unidrive(true)->get('/usuario');
 
-        if ($getUserRequest->failed()) {
+        if (
+            $isLoggedIn &&
+            $getUserRequest->failed()
+        ) {
             auth()->logout();
+
+            return redirect()->route('login');
         }
 
         return $next($request);
