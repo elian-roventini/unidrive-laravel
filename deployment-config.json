@@ -1,0 +1,11 @@
+[
+  {
+    "name": "unidrive-v2",
+    "ip": "104.236.194.207",
+    "username": "root",
+    "port": "22",
+    "beforeHooks": "",
+    "afterHooks": "",
+    "path": ""
+  }
+]
