@@ -4,26 +4,24 @@
 
 @section('content')
     <div class="bg-white text-black p-8 mx-auto">
-
         <x-message.success />
         <x-message.error />
-
         <div class="flex flex-col md:flex-row">
             <div class="grow md:mr-8">
                 @include('pages.car.gallery')
 
                 <div class="bg-blue-dark rounded-lg mt-8">
                     <div class="p-4 md:flex md:flex-wrap justify-between">
-                        <h2 class="text-white text-xl font-bold">{{ $carro->marca ?? '' }} {{ $carro->modelo ?? '' }}</h2>
-                        <h3 class="text-orange text-xl font-bold">R$ {{ $carro->valor ?? '' }}</h3>
+                        <h2 class="text-white text-xl font-bold">{{ $carro['marca'] ?? '' }} {{ $carro['modelo'] ?? '' }}</h2>
+                        <h3 class="text-orange text-xl font-bold">R$ {{ $carro['valor'] ?? '' }}</h3>
                     </div>
 
                     <hr>
 
                     <div class="p-4 md:flex md:flex-wrap md:space-x-4">
-                        <p class="text-white">Concessionaria <small class="font-bold">{{ $carro->concessionaria->nomeFantasia ?? '' }}</small></p>
-                        <p class="text-white">Ano <small class="font-bold">{{ $carro->ano ?? '' }}</small></p>
-                        <p class="text-white">KM <small class="font-bold">{{ $carro->quilometragem ?? '' }}</small></p>
+                        <p class="text-white">Concessionaria <small class="font-bold">{{ $carro['concessionaria']['nomeFantasia'] ?? '' }}</small></p>
+                        <p class="text-white">Ano <small class="font-bold">{{ $carro['ano'] ?? '' }}</small></p>
+                        <p class="text-white">KM <small class="font-bold">{{ $carro['quilometragem'] ?? '' }}</small></p>
                     </div>
                 </div>
 
@@ -46,7 +44,7 @@
 
             <div class="w-fit md:ml-4">
                 @auth()
-                    @if($carro->concessionaria->id !== auth()->user()->concessionaria_id)
+                    @if($carro['concessionaria']['id'] !== auth()->user()->concessionaria_id)
                         <form class="flex flex-col border-1 md:px-8 border-1 gap-4" action="{{ route('schedule.store') }}" method="POST">
                         @csrf
 
@@ -54,7 +52,7 @@
                         <x-form.input x-col="col-span-6" name="initial_time" type="time" min="08:00" max="18:00" required>Hora Inicial</x-form.input>
                         <x-form.input x-col="col-span-6" name="final_time" type="time" min="08:00" max="18:00" required>Hora Final</x-form.input>
 
-                        <input type="hidden" name="carro" value="{{ $carro->id }}">
+                        <input type="hidden" name="carro" value="{{ $carro['id'] }}">
 
                         <div class="inline-flex justify-end">
                             <x-button type="button">Agendar Test Drive</x-button>
