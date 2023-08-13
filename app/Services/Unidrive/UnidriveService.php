@@ -18,6 +18,6 @@ class UnidriveService
 
         if (!session()->has('token')) $withAuth = false;
 
-        return $withAuth ? $http : $http->withToken(session('token'));
+        return $withAuth ? $http->withHeader('Authorization', session('token')) : $http;
     }
 }

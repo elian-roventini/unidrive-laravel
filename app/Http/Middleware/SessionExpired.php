@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Services\Unidrive\UnidriveService;
 
-class SessionExpired
+class SessionExpired extends UnidriveService
 {
     /**
      * Handle an incoming request.
@@ -19,11 +19,9 @@ class SessionExpired
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $isLoggedIn = $request->path() !== 'dashboard/logout';
-        if (
-            $isLoggedIn &&
-            (new UnidriveService())->api(true)->get('/usuario')->failed()
-        ) {
+        $getUserRequest = $this->api(true)->get('/usuario');
+
+        if (auth()->check() && $getUserRequest->failed()) {
             auth()->logout();
 
             return redirect()->route('auth.login');

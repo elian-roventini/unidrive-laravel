@@ -32,7 +32,7 @@ class UserService extends UnidriveService
         return (new User())->query()->where('email', $user['email'])->first();
     }
 
-    public function get(): object
+    public function get(): array
     {
         $getUserResponse = $this->api(true)->get('/usuario');
 
