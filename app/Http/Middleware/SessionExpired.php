@@ -3,30 +3,30 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+
+use App\Services\Unidrive\UnidriveService;
 
 class SessionExpired
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Closure $next
+     * @return RedirectResponse|mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $isLoggedIn = $request->path() !== 'dashboard/logout';
-        $getUserRequest = Http::unidrive(true)->get('/usuario');
-
         if (
             $isLoggedIn &&
-            $getUserRequest->failed()
+            (new UnidriveService())->api(true)->get('/usuario')->failed()
         ) {
             auth()->logout();
 
-            return redirect()->route('login');
+            return redirect()->route('auth.login');
         }
 
         return $next($request);

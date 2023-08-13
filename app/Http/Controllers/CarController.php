@@ -11,83 +11,83 @@ class CarController extends Controller
 {
     public function index(CarService $carService, Request $request): Response
     {
-        $cars = collect($carService->getCars());
+        try {
+            $cars = collect($carService->all());
 
-        if ($cars === null) {
+            if ($request->filled(['marca'])) {
+                $cars = $cars->filter(static fn ($car) => $car->marca === strtoupper($request->get('marca')));
+            }
+
+            if ($request->filled(['modelo'])) {
+                $cars = $cars->filter(static fn ($car) => $car->modelo === strtoupper($request->get('modelo')));
+            }
+
+            session()->flashInput([
+                'marca' => $request->get('marca'),
+                'modelo' => $request->get('modelo'),
+            ]);
+
+            return response()->view('pages.car.index', [
+                'carros' => $cars
+                                ->slice($request->get('offset') ?? 0, $request->get('limit') ?? 10)
+                                ->toArray()
+            ]);
+        } catch (\Exception $exception) {
             return back()
-                ->with('error', 'Erro ao buscar os carros!');
+                ->with('error', $exception->getMessage());
         }
-
-        if ($request->filled(['marca'])) {
-            $cars = $cars->filter(static fn ($carro) => $carro->marca === strtoupper($request->get('marca')));
-        }
-
-        if ($request->filled(['modelo'])) {
-            $cars = $cars->filter(static fn ($carro) => $carro->modelo === strtoupper($request->get('modelo')));
-        }
-
-        session()->flashInput([
-            'marca' => $request->get('marca'),
-            'modelo' => $request->get('modelo'),
-        ]);
-
-        return response()->view('pages.car.index', [
-            'carros' => $cars
-                            ->slice($request->get('offset') ?? 0, $request->get('limit') ?? 10)
-                            ->toArray()
-        ]);
     }
 
     public function show(CarService $carService, int $id): Response
     {
-        $cars = collect($carService->getCars());
+        try {
+            $cars = collect($carService->all());
 
-        if ($cars === null) {
+            $car = $cars->filter(static fn($car) => $car->id === $id)->first();
+            if (empty($car)) {
+                return response()
+                    ->redirectToRoute('car.index')
+                    ->with('error', 'Nenhum carro localizado!');
+            }
+
+            return response()->view('pages.car.show', [
+                'carro' => $car,
+                'carros' => $cars
+                                ->reject(static fn ($actualCar) => $actualCar->id === $car->id)
+                                ->slice(0,3)
+                                ->toArray()
+            ]);
+        } catch (\Exception $exception) {
             return back()
-                ->with('error', 'Erro ao buscar os carros!');
+                ->with('error', $exception->getMessage());
         }
-
-        $car = $cars->filter(static fn($car) => $car->id === $id)->first();
-        if ($car === []) {
-            return response()
-                ->redirectToRoute('car.index')
-                ->with('error', 'Não foi possivel localizar o carro!');
-        }
-
-        return response()->view('pages.car.show', [
-            'carro' => $car,
-            'carros' => $cars
-                            ->reject(static fn ($carroAtual) => $carroAtual->id === $car->id)
-                            ->slice(0,3)
-                            ->toArray()
-        ]);
     }
 
     public function store(CarService $carService, CarPostRequest $request): Response
     {
-        $carCreated = $carService->register($request->validated());
+        try {
+            $carService->store($request->validated());
 
-        if (!$carCreated) {
+            return back()->with([
+                'success' => 'Carro cadastrado!'
+            ]);
+        } catch (\Exception $exception) {
             return back()
-                ->with('error', 'Carro não pode ser cadastrado!')
+                ->with('error', $exception->getMessage())
                 ->withInput($request->validated());
         }
-
-        return back()->with([
-            'success' => 'Carro cadastrado!'
-        ]);
     }
 
     public function delete(CarService $carService, int $id): Response
     {
-        $carDeleted = $carService->delete($id);
+        try {
+            $carService->delete($id);
 
-        if (!$carDeleted) {
             return response()
-                ->json([ 'error' => 'Carro não pode ser apagado!' ],Response::HTTP_BAD_REQUEST);
+                ->json([ 'success' => 'Carro deletado!' ]);
+        } catch (\Exception $exception) {
+            return response()
+                ->json([ 'error' => $exception->getMessage() ], Response::HTTP_BAD_REQUEST);
         }
-
-        return response()
-            ->json([ 'success' => 'Carro deletado!' ]);
     }
 }

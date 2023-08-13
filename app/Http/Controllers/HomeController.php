@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index(CarService $carService): Response
     {
         return response()->view('pages.home.index', [
-            'carros' => collect($carService->getCars())
+            'carros' => collect($carService->all())
                             ->slice(0, 10)
                             ->toArray()
         ]);

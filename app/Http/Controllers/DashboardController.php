@@ -12,24 +12,18 @@ class DashboardController extends Controller
 {
     public function index(UserService $userService, CarService $carService, DealershipService $dealershipService, ScheduleService $scheduleService): Response
     {
-        $user = $userService->getUser();
-        $car = $carService->getCarsDealership();
-        $dealership = $dealershipService->getDealership();
-        $scheduleDealership = $scheduleService->getScheduleDealership();
-        $scheduleUser = $scheduleService->getScheduleUser();
-
-        if ($user === null) {
+        try {
+            return response()->view('pages.dashboard.index', [
+                'usuario' => $userService->get(),
+                'concessionaria' => $dealershipService->get(),
+                'agendamentosConcessionaria' => $scheduleService->scheduleDealership(),
+                'agendamentosUsuario' => $scheduleService->scheduleUser(),
+                'carros' => collect($carService->carsDealership())->slice(0, 10)->toArray(),
+            ]);
+        } catch (\Exception $exception) {
             return response()
-                    ->redirectToRoute('home.index')
-                    ->with('error', 'Não Autorizado');
+                ->redirectToRoute('home.index')
+                ->with('error', $exception->getMessage());
         }
-
-        return response()->view('pages.dashboard.index', [
-            'usuario' => $user,
-            'concessionaria' => $dealership,
-            'agendamentosConcessionaria' => $scheduleDealership,
-            'agendamentosUsuario' => $scheduleUser,
-            'carros' => collect($car)->slice(0, 10)->toArray(),
-        ]);
     }
 }

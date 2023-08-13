@@ -6,48 +6,40 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-class UserService
+class UserService extends UnidriveService
 {
-    public function register(array $user): User|null
+    public function store(array $user): object
     {
-        try {
-            $postUserResponse = Http::unidrive()->post('/usuario', [
-                'cnh' => $user['cnh'],
-                'cpf' => $user['cpf'],
-                'email' => $user['email'],
-                'endereco' => [
-                    'cep' => $user['cep'],
-                    'complemento' => $user['complemento'],
-                    'endereco' => $user['endereco'],
-                    'numero' => $user['numero']
-                ],
-                'nome' => $user['nome'],
-                'senha' => $user['senha'],
-                'telefone' => $user['telefone']
-            ]);
+        $postUserResponse = $this->api()->post('/usuario', [
+            'cnh' => $user['cnh'],
+            'cpf' => $user['cpf'],
+            'email' => $user['email'],
+            'endereco' => [
+                'cep' => $user['cep'],
+                'complemento' => $user['complemento'],
+                'endereco' => $user['endereco'],
+                'numero' => $user['numero']
+            ],
+            'nome' => $user['nome'],
+            'senha' => $user['senha'],
+            'telefone' => $user['telefone']
+        ]);
 
-            if ($postUserResponse->failed()) {
-                return null;
-            }
-
-            return (new User())->where('email', $user['email'])->first();
-        } catch (Exception) {
-            return null;
+        if ($postUserResponse->failed()) {
+            throw new \Exception('Usuário não pode ser cadastrado!');
         }
+
+        return (new User())->query()->where('email', $user['email'])->first();
     }
 
-    public function getUser(): object|null
+    public function get(): object
     {
-        try {
-            $getUserResponse = Http::unidrive(true)->get('/usuario');
+        $getUserResponse = $this->api(true)->get('/usuario');
 
-            if ($getUserResponse->failed()) {
-                return null;
-            }
-
-            return json_decode($getUserResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception) {
-            return null;
+        if ($getUserResponse->failed()) {
+            throw new \Exception('Não Autorizado');
         }
+
+        return $getUserResponse->json();
     }
 }

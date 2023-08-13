@@ -8,24 +8,20 @@ use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
-    public function __construct(
-        public UserService $userService
-    )
-    {
-    }
+    public function __construct(public UserService $userService){}
 
     public function store(UserPostRequest $request): RedirectResponse
     {
-        $user = $this->userService->register($request->validated());
+        try {
+            $this->userService->store($request->validated());
 
-        if ($user === null) {
+            return response()
+                ->redirectToRoute('auth.login')
+                ->with('success', 'Usuário cadastrado!');
+        } catch (\Exception $exception) {
             return back()
-                ->with('error', 'Usuário não pode ser cadastrado!')
+                ->with('error', $exception->getMessage())
                 ->withInput($request->safe()->except(['password']));
         }
-
-        return response()
-            ->redirectToRoute('auth.login')
-            ->with('success', 'Usuário cadastrado!');
     }
 }

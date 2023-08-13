@@ -9,11 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DealershipController extends Controller
 {
-    public function __construct(
-        public DealershipService $dealershipService
-    )
-    {
-    }
+    public function __construct(protected DealershipService $dealershipService){}
 
     public function create(): Response
     {
@@ -33,16 +29,17 @@ class DealershipController extends Controller
                     ->withInput($request->safe()->toArray());
         }
 
-        $dealarshipCreated = $this->dealershipService->register($request->validated());
+        try {
+            $this->dealershipService->store($request->validated());
 
-        if (!$dealarshipCreated) {
+            return response()
+                ->redirectToRoute('dashboard.index')
+                ->with('success', 'Concessionária cadastrada!');
+        } catch (\Exception $exception) {
             return back()
-                    ->with('error', 'Concessionária não pode ser cadastrada!')
+                    ->with('error', $exception->getMessage())
                     ->withInput($request->safe()->toArray());
         }
 
-        return response()
-                ->redirectToRoute('dashboard.index')
-                ->with('success', 'Concessionária cadastrada!');
     }
 }

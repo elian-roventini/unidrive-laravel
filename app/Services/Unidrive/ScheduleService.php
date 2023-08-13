@@ -6,84 +6,58 @@ use Carbon\CarbonImmutable;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-class ScheduleService
+class ScheduleService extends UnidriveService
 {
-    public function register(array $carro, string $date, string $initial_time, string $final_time): bool
+    public function store(array $carro, string $date, string $initial_time, string $final_time): void
     {
-        try {
-            $carbonDate = CarbonImmutable::create($date);
+        $carbonDate = CarbonImmutable::create($date);
 
-            [$initialHour, $initialMinutes] = explode(':', $initial_time ?? '00:00');
-            [$finalHour, $finalMinutes] = explode(':', $final_time ?? '00:00');
+        [$initialHour, $initialMinutes] = explode(':', $initial_time ?? '00:00');
+        [$finalHour, $finalMinutes] = explode(':', $final_time ?? '00:00');
 
-            $initialTime = $carbonDate
-                ->hour($initialHour)
-                ->minutes($initialMinutes)
-                ->format('Y-m-d\TH:i:s.u');
-            $finalTime = $carbonDate
-                ->hour($finalHour)
-                ->minutes($finalMinutes)
-                ->format('Y-m-d\TH:i:s.u');
+        $initialTime = $carbonDate
+            ->hour($initialHour)
+            ->minutes($initialMinutes)
+            ->format('Y-m-d\TH:i:s.u');
+        $finalTime = $carbonDate
+            ->hour($finalHour)
+            ->minutes($finalMinutes)
+            ->format('Y-m-d\TH:i:s.u');
 
-            $postScheduleResponse = Http::unidrive(true)->post('/agendamento', [
-                'carro' => $carro,
-                'dt_agendamento' => $carbonDate->format('Y-m-d\TH:m:s.u'),
-                'hr_inicial' => $initialTime,
-                'hr_final' => $finalTime,
-            ]);
-
-            if ($postScheduleResponse->failed()) {
-                return false;
-            }
-
-            return true;
-        } catch (Exception) {
-            return false;
+        if ($this->api(true)->post('/agendamento', [
+            'carro' => $carro,
+            'dt_agendamento' => $carbonDate->format('Y-m-d\TH:m:s.u'),
+            'hr_inicial' => $initialTime,
+            'hr_final' => $finalTime,
+        ])->failed()) {
+            throw new \Exception('Agendamento não pode ser realizado!');
         }
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id): void
     {
-        try {
-            $deleteAgendamentoResponse = Http::unidrive(true)->delete("/agendamento/deletar/$id");
-
-            if ($deleteAgendamentoResponse->failed()) {
-                return false;
-            }
-
-            return true;
-        } catch (Exception) {
-            return false;
+        if ($this->api()->delete("/agendamento/deletar/$id")->failed()) {
+            throw new \Exception('Agendamento não pode ser apagado!');
         }
     }
 
-    public function getScheduleDealership(): array|null
+    public function scheduleDealership(): array
     {
-        try {
-            $getAgendamentosConcessionariaResponse = Http::unidrive(true)->get('/agendamento/concessionaria');
-
-            if ($getAgendamentosConcessionariaResponse->failed()) {
-                return null;
-            }
-
-            return json_decode($getAgendamentosConcessionariaResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception) {
-            return null;
+        $response = $this->api(true)->get('/agendamento/concessionaria');
+        if ($response->failed()) {
+            throw new \Exception('Erro ao buscar agendamentos da concessionária!');
         }
+
+        return $response->json();
     }
 
-    public function getScheduleUser(): array|null
+    public function scheduleUser(): array|null
     {
-        try {
-            $getAgendamentosUsuarioResponse = Http::unidrive(true)->get('/agendamento/usuario');
-
-            if ($getAgendamentosUsuarioResponse->failed()) {
-                return null;
-            }
-
-            return json_decode($getAgendamentosUsuarioResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception) {
-            return null;
+        $response = $this->api(true)->get('/agendamento/usuario');
+        if ($response->failed()) {
+            throw new \Exception('Erro ao buscar os agendamentos do usuário!');
         }
+
+        return $response->json();
     }
 }

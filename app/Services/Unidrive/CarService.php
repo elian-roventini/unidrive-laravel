@@ -5,92 +5,68 @@ namespace App\Services\Unidrive;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-class CarService
+class CarService extends UnidriveService
 {
-    public function register(array $car): bool
+    public function store(array $car): void
     {
-        try {
-            $postCarroResponse = Http::unidrive(true)->post('/carro', [
-                [
-                    'ano' => $car['ano'],
-                    'cor' => $car['cor'],
-                    'documentacao' => $car['documentacao'],
-                    'marca' => $car['marca'],
-                    'modelo' => $car['modelo'],
-                    'placa' => strtoupper($car['placa']),
-                    'quilometragem' => $car['quilometragem'],
-                    'renavam' => $car['renavam'],
-                    'valor' => $car['valor'],
-                ]
-            ]);
+        $postCarroResponse = $this->api(true)->post('/carro', [
+            [
+                'ano' => $car['ano'],
+                'cor' => $car['cor'],
+                'documentacao' => $car['documentacao'],
+                'marca' => $car['marca'],
+                'modelo' => $car['modelo'],
+                'placa' => strtoupper($car['placa']),
+                'quilometragem' => $car['quilometragem'],
+                'renavam' => $car['renavam'],
+                'valor' => $car['valor'],
+            ]
+        ]);
 
-            if ($postCarroResponse->failed()) {
-                return false;
-            }
-
-            return true;
-        }catch (Exception) {
-            return false;
+        if ($postCarroResponse->failed()) {
+            throw new \Exception('Erro ao cadastrar o carro!');
         }
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id): void
     {
-        try {
-            $deleteCarroResponse = Http::unidrive(true)->delete("/carro/$id");
+        $deleteCarroResponse = $this->api(true)->delete("/carro/$id");
 
-            if ($deleteCarroResponse->failed()) {
-                return false;
-            }
-
-            return true;
-        } catch (Exception) {
-            return false;
+        if ($deleteCarroResponse->failed()) {
+            throw new \Exception('Erro ao deletar o carro!');
         }
     }
 
-    public function getCars(): array|null
+    public function all(): array
     {
-        try {
-            $carrosGetResponse = Http::unidrive()->get('/carro');
+        $carrosGetResponse = $this->api()->get('/carro');
 
-            if ($carrosGetResponse->failed()) {
-                return null;
-            }
-
-            return json_decode($carrosGetResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception) {
-            return null;
+        if ($carrosGetResponse->failed()) {
+            throw new \Exception('Erro ao buscar os carros!');
         }
+
+        return $carrosGetResponse->json();
     }
 
-    public function getCar(int $id): object|null
+    public function get(int $id): object
     {
-        try {
-            $getCarroResponse = Http::unidrive(true)->get("/carro/$id");
+        $getCarroResponse = $this->api(true)->get("/carro/$id");
 
-            if ($getCarroResponse->failed()) {
-                return null;
-            }
-
-            return json_decode($getCarroResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception) {
-            return null;
+        if ($getCarroResponse->failed()) {
+            throw new \Exception('Carro não encontrado!');
         }
+
+        return $getCarroResponse->object();
     }
 
-    public function getCarsDealership()
+    public function carsDealership(): array
     {
-        try {
-            $carrosGetResponse = Http::unidrive(true)->get('/concessionaria/carros');
+        $carrosGetResponse = $this->api(true)->get('/concessionaria/carros');
 
-            if ($carrosGetResponse->failed()) {
-                return null;
-            }
-
-            return json_decode($carrosGetResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception) {
-            return null;
+        if ($carrosGetResponse->failed()) {
+            throw new \Exception('Erro ao buscar os carros da concessionária!');
         }
+
+        return $carrosGetResponse->json();
     }
 }

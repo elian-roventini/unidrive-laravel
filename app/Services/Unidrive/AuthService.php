@@ -5,24 +5,24 @@ namespace App\Services\Unidrive;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-class AuthService
+class AuthService extends UnidriveService
 {
     public function login(string $email, string $senha): string|null
     {
-        try {
-            $postAuthResponse = Http::unidrive()->post('/auth', compact('email', 'senha'));
+        $postAuthResponse = $this->api()->post('/auth', compact('email', 'senha'));
 
-            if ($postAuthResponse->failed()) {
-                return null;
-            }
-
-            $responseJson = json_decode($postAuthResponse->body(), false, 512, JSON_THROW_ON_ERROR);
-
-            session(['token' => "$responseJson->tipo $responseJson->token"]);
-
-            return $responseJson->token;
-        } catch (Exception) {
-            return null;
+        if ($postAuthResponse->failed()) {
+            throw new \Exception('Erro ao tentar conectar com a API');
         }
+
+        $responseJson = $postAuthResponse->json();
+
+        if (!array_key_exists('tipo', $responseJson) || !array_key_exists('token', $responseJson)) {
+            throw new \Exception('Token inválido!');
+        }
+
+        session(['token' => sprintf("%s %s", $responseJson['tipo'], $responseJson['token'])]);
+
+        return $responseJson['token'];
     }
 }
