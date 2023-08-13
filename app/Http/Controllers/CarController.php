@@ -43,7 +43,7 @@ class CarController extends Controller
         try {
             $cars = collect($carService->all());
 
-            $car = $cars->filter(static fn($car) => $car->id === $id)->first();
+            $car = $cars->filter(static fn($car) => $car['id'] === $id)->first();
             if (empty($car)) {
                 return response()
                     ->redirectToRoute('car.index')
@@ -53,7 +53,7 @@ class CarController extends Controller
             return response()->view('pages.car.show', [
                 'carro' => $car,
                 'carros' => $cars
-                                ->reject(static fn ($actualCar) => $actualCar->id === $car->id)
+                                ->reject(static fn ($actualCar) => $actualCar['id'] === $car['id'])
                                 ->slice(0,3)
                                 ->toArray()
             ]);
